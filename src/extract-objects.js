@@ -141,6 +141,20 @@ class DatabaseObjectExtractor {
         JSON.stringify(proceduresData, null, 2)
       );
 
+      // Criar arquivo SQL para MySQL
+      let mysqlProceduresSQL = '-- Stored Procedures convertidas para MySQL\n\n';
+      proceduresData.procedures.forEach(proc => {
+        mysqlProceduresSQL += `-- Procedure: ${proc.name}\n`;
+        mysqlProceduresSQL += `-- Complexidade: ${proc.complexity}\n`;
+        mysqlProceduresSQL += `-- Notas: ${proc.migration_notes.join(', ')}\n`;
+        mysqlProceduresSQL += `${proc.mysql_sql}\n\n`;
+      });
+
+      await fs.writeFile(
+        path.join(this.outputDir, 'procedures', 'procedures-mysql.sql'),
+        mysqlProceduresSQL
+      );
+
       return procedures.length;
     } catch (error) {
       logger.error('Erro ao extrair stored procedures:', error);
@@ -188,6 +202,21 @@ class DatabaseObjectExtractor {
       await fs.writeFile(
         path.join(this.outputDir, 'functions', 'functions-export.json'),
         JSON.stringify(functionsData, null, 2)
+      );
+
+      // Criar arquivo SQL para MySQL
+      let mysqlFunctionsSQL = '-- Functions convertidas para MySQL\n\n';
+      functionsData.functions.forEach(func => {
+        mysqlFunctionsSQL += `-- Function: ${func.name}\n`;
+        mysqlFunctionsSQL += `-- Tipo de retorno: ${func.return_type}\n`;
+        mysqlFunctionsSQL += `-- Complexidade: ${func.complexity}\n`;
+        mysqlFunctionsSQL += `-- Notas: ${func.migration_notes.join(', ')}\n`;
+        mysqlFunctionsSQL += `${func.mysql_sql}\n\n`;
+      });
+
+      await fs.writeFile(
+        path.join(this.outputDir, 'functions', 'functions-mysql.sql'),
+        mysqlFunctionsSQL
       );
 
       return functions.length;
