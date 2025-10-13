@@ -291,6 +291,130 @@ class DatabaseObjectExtractor {
     return this.getProcedureMigrationNotes(definition);
   }
 
+  // Extrair Triggers
+  async extractTriggers() {
+    logger.info('🔍 Extraindo Triggers...');
+    const sqlPool = await this.db.connectSqlServer();
+
+    try {
+      const query = `
+        SELECT 
+          t.name as trigger_name,
+          t.object_id,
+          ta.name as table_name,
+          OBJECT_DEFINITION(t.object_id) as definition,
+          t.is_disabled,
+          t.is_instead_of_trigger,
+          te.type_desc as event_type
+        FROM sys.triggers t
+        INNER JOIN sys.tables ta ON t.parent_id = ta.object_id
+        LEFT JOIN sys.trigger_events te ON t.object_id = te.object_id
+        WHERE t.parent_class = 1 -- Table triggers only
+        ORDER BY ta.name, t.name
+      `;
+
+      const result = await sqlPool.request().query(query);
+      const triggers = result.recordset;
+
+      logger.info(`✅ Encontradas ${triggers.length} triggers`);
+
+      // Agrupar triggers por tabela
+      const triggersByTable = {};
+      triggers.forEach(trigger => {
+        if (!triggersByTable[trigger.table_name]) {
+          triggersByTable[trigger.table_name] = [];
+        }
+        triggersByTable[trigger.table_name].push(trigger);
+      });
+
+      const triggersData = {
+        extracted_at: new Date().toISOString(),
+        total_triggers: triggers.length,
+        triggers_by_table: triggersByTable,
+        triggers: triggers.map(trigger => ({
+          name: trigger.trigger_name,
+          table_name: trigger.table_name,
+          event_type: trigger.event_type,
+          is_disabled: trigger.is_disabled,
+          is_instead_of: trigger.is_instead_of_trigger,
+          original_sql: trigger.definition,
+          mysql_sql: this.convertTriggerToMySQL(trigger.definition, trigger.table_name),
+          complexity: this.analyzeTriggerComplexity(trigger.definition),
+          migration_notes: this.getTriggerMigrationNotes(trigger.definition)
+        }))
+      };
+
+      await fs.writeFile(
+        path.join(this.outputDir, 'triggers', 'triggers-export.json'),
+        JSON.stringify(triggersData, null, 2)
+      );
+
+      // Criar arquivo SQL para MySQL
+      let mysqlTriggersSQL = '-- Triggers convertidas para MySQL\n\n';
+      triggersData.triggers.forEach(trigger => {
+        mysqlTriggersSQL += `-- Trigger: ${trigger.name} na tabela ${trigger.table_name}\n`;
+        mysqlTriggersSQL += `-- Tipo: ${trigger.event_type}\n`;
+        mysqlTriggersSQL += `-- Notas: ${trigger.migration_notes.join(', ')}\n`;
+        mysqlTriggersSQL += `${trigger.mysql_sql};\n\n`;
+      });
+
+      await fs.writeFile(
+        path.join(this.outputDir, 'triggers', 'triggers-mysql.sql'),
+        mysqlTriggersSQL
+      );
+
+      return triggers.length;
+    } catch (error) {
+      logger.error('Erro ao extrair triggers:', error);
+      throw error;
+    }
+  }
+
+  convertTriggerToMySQL(definition, tableName) {
+    if (!definition) return '-- Definição não disponível';
+    
+    let converted = definition
+      .replace(/CREATE\s+TRIGGER/i, `DELIMITER $$\nCREATE TRIGGER`)
+      .replace(/\[dbo\]\./g, '')
+      .replace(/\[([^\]]+)\]/g, '`$1`')
+      .replace(/GETDATE\(\)/g, 'NOW()')
+      .replace(/@@ROWCOUNT/g, 'ROW_COUNT()')
+      .replace(/INSERTED/g, 'NEW')
+      .replace(/DELETED/g, 'OLD')
+      .replace(/PRINT\s+/g, '-- PRINT: ')
+      .replace(/RAISERROR\s*\(/g, 'SIGNAL SQLSTATE \'45000\' SET MESSAGE_TEXT = ');
+    
+    converted += '\n$$\nDELIMITER ;';
+    return converted;
+  }
+
+  analyzeTriggerComplexity(definition) {
+    if (!definition) return 'Desconhecida';
+    
+    const complexFeatures = [
+      /CURSOR/i, /WHILE/i, /TRY...CATCH/i, /TRANSACTION/i,
+      /INSERTED/i, /DELETED/i, /MERGE/i, /BULK/i
+    ];
+    
+    const complexCount = complexFeatures.filter(regex => regex.test(definition)).length;
+    
+    if (complexCount >= 3) return 'Alta - Migração manual necessária';
+    if (complexCount >= 1) return 'Média - Revisão requerida';
+    return 'Baixa - Conversão possível';
+  }
+
+  getTriggerMigrationNotes(definition) {
+    const notes = [];
+    
+    if (/INSERTED/i.test(definition)) notes.push('INSERTED convertido para NEW');
+    if (/DELETED/i.test(definition)) notes.push('DELETED convertido para OLD');
+    if (/CURSOR/i.test(definition)) notes.push('Contém cursors - revisar lógica');
+    if (/TRY...CATCH/i.test(definition)) notes.push('Error handling precisa adaptação');
+    if (/@@/g.test(definition)) notes.push('Variáveis globais precisam conversão');
+    
+    return notes.length ? notes : ['Conversão direta possível'];
+  }
+
   // Método principal
   async extractAllObjects() {
     await this.ensureOutputDirectory();
@@ -301,6 +425,7 @@ class DatabaseObjectExtractor {
       const viewCount = await this.extractViews();
       const procCount = await this.extractStoredProcedures();
       const funcCount = await this.extractFunctions();
+      const triggerCount = await this.extractTriggers();
       
       const summary = {
         extraction_date: new Date().toISOString(),
@@ -308,7 +433,8 @@ class DatabaseObjectExtractor {
           views: viewCount,
           stored_procedures: procCount,
           functions: funcCount,
-          total_objects: viewCount + procCount + funcCount
+          triggers: triggerCount,
+          total_objects: viewCount + procCount + funcCount + triggerCount
         }
       };
       
