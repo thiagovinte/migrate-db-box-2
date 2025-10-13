@@ -45,13 +45,65 @@ class DataMigrator {
     }
   }
 
+  // Verificar se tabela já foi migrada
+  async checkMigrationStatus(tableName, expectedRows) {
+    try {
+      const mysqlConn = await this.db.connectMySQL();
+      const [result] = await mysqlConn.execute(
+        `SELECT COUNT(*) as count FROM \`${tableName}\``
+      );
+      const currentRows = parseInt(result[0].count);
+      
+      if (currentRows === 0) {
+        return { status: 'empty', currentRows, expectedRows };
+      }
+      
+      if (currentRows >= expectedRows) {
+        return { status: 'completed', currentRows, expectedRows };
+      }
+      
+      // Se tem alguns dados mas não todos, verificar se é migração parcial
+      if (currentRows > 0 && currentRows < expectedRows) {
+        return { status: 'partial', currentRows, expectedRows };
+      }
+      
+      return { status: 'pending', currentRows, expectedRows };
+    } catch (error) {
+      if (error.code === 'ER_NO_SUCH_TABLE') {
+        return { status: 'no_table', currentRows: 0, expectedRows };
+      }
+      throw error;
+    }
+  }
+
   // Migrar dados de uma tabela
   async migrateTable(tableName, schema) {
-    logger.info(`🚚 Iniciando migração: ${tableName} (${schema.row_count} registros)`);
+    const expectedRows = parseInt(schema.row_count);
     
-    if (schema.row_count === 0) {
+    if (expectedRows === 0) {
       logger.info(`⏭️  Pulando tabela vazia: ${tableName}`);
       return;
+    }
+
+    // Verificar status da migração
+    const migrationStatus = await this.checkMigrationStatus(tableName, expectedRows);
+    
+    switch (migrationStatus.status) {
+      case 'completed':
+        logger.info(`✅ ${tableName}: ${migrationStatus.currentRows}/${expectedRows} registros - COMPLETA`);
+        return;
+        
+      case 'partial':
+        logger.info(`⚠️  ${tableName}: ${migrationStatus.currentRows}/${expectedRows} registros - CONTINUANDO...`);
+        break;
+        
+      case 'empty':
+      case 'no_table':
+        logger.info(`🚚 ${tableName}: 0/${expectedRows} registros - INICIANDO MIGRAÇÃO`);
+        break;
+        
+      default:
+        logger.info(`🚚 ${tableName}: ${migrationStatus.currentRows}/${expectedRows} registros - CONTINUANDO`);
     }
 
     const sqlPool = await this.db.connectSqlServer();
@@ -61,10 +113,15 @@ class DataMigrator {
     const identityColumn = schema.columns.find(col => col.is_identity);
     
     try {
-      let offset = 0;
+      // Para migrações parciais, começar do último registro migrado
+      let offset = migrationStatus.status === 'partial' ? migrationStatus.currentRows : 0;
       let migratedRows = 0;
+      
+      if (offset > 0) {
+        logger.info(`🔄 Retomando migração a partir do registro ${offset}`);
+      }
 
-      while (offset < schema.row_count) {
+      while (offset < expectedRows) {
         // Buscar lote do SQL Server
         const query = `
           SELECT * FROM ${tableName}
