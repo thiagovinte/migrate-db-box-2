@@ -1,0 +1,61 @@
+{
+  "extracted_at": "2025-10-13T21:21:43.626Z",
+  "total_functions": 5,
+  "functions": [
+    {
+      "name": "fncBase64_Decode",
+      "return_type": "varchar",
+      "return_length": -1,
+      "original_sql": "CREATE FUNCTION [dbo].[fncBase64_Decode] (\n    @string VARCHAR(MAX)\n)\nRETURNS VARCHAR(MAX)\nAS BEGIN\n\n    DECLARE @decoded VARCHAR(MAX)\n    SET @decoded = CAST('' AS XML).value('xs:base64Binary(sql:variable(\"@string\"))', 'varbinary(max)')\n\n    RETURN CONVERT(VARCHAR(MAX), @decoded)\n\t\nEND\n",
+      "mysql_sql": "DELIMITER $\nCREATE FUNCTION `fncBase64_Decode` (\n    @string VARCHAR(MAX)\n)\nRETURNS VARCHAR(MAX)\nAS BEGIN\n\n    DECLARE @decoded VARCHAR(MAX)\n    SET @decoded = CAST('' AS XML).value('xs:base64Binary(sql:variable(\"@string\"))', 'varbinary(max)')\n\n    RETURN CONVERT(VARCHAR(MAX), @decoded)\n\t\nEND\n\n$$\nDELIMITER ;",
+      "complexity": "Baixa - Conversão possível",
+      "migration_notes": [
+        "Conversão direta possível"
+      ]
+    },
+    {
+      "name": "fncBase64_Encode",
+      "return_type": "varchar",
+      "return_length": -1,
+      "original_sql": "\nCREATE FUNCTION [dbo].[fncBase64_Encode] (\n    @string VARCHAR(MAX)\n) \nRETURNS VARCHAR(MAX)\nAS BEGIN\n\n    DECLARE \n        @source VARBINARY(MAX), \n        @encoded VARCHAR(MAX)\n        \n    SET @source = CONVERT(VARBINARY(MAX), @string)\n    SET @encoded = CAST('' AS XML).value('xs:base64Binary(sql:variable(\"@source\"))', 'varchar(max)')\n\n    RETURN @encoded\n\nEND\n\n",
+      "mysql_sql": "\nDELIMITER $\nCREATE FUNCTION `fncBase64_Encode` (\n    @string VARCHAR(MAX)\n) \nRETURNS VARCHAR(MAX)\nAS BEGIN\n\n    DECLARE \n        @source VARBINARY(MAX), \n        @encoded VARCHAR(MAX)\n        \n    SET @source = CONVERT(VARBINARY(MAX), @string)\n    SET @encoded = CAST('' AS XML).value('xs:base64Binary(sql:variable(\"@source\"))', 'varchar(max)')\n\n    RETURN @encoded\n\nEND\n\n\n$$\nDELIMITER ;",
+      "complexity": "Baixa - Conversão possível",
+      "migration_notes": [
+        "Conversão direta possível"
+      ]
+    },
+    {
+      "name": "formatarCNPJCPF",
+      "return_type": "char",
+      "return_length": 18,
+      "original_sql": "\nCREATE FUNCTION [dbo].[formatarCNPJCPF]   (@CnpjCpf char(50))\nRETURNS CHAR(18)\n\nAS\n\nBEGIN\n      DECLARE @retorno VARCHAR(18)\n      set @CnpjCpf = replace(replace(replace(replace(@CnpjCpf,'.',''),'-',''),'/',''),' ','')\n\n      IF LEN(@CnpjCpf)= 14 \n          --CNPJ\n           BEGIN\n                SET @retorno = substring(@CnpjCpf ,1,2) + '.' + substring(@CnpjCpf ,3,3) + '.' + substring(@CnpjCpf ,6,3) + '/' + substring(@CnpjCpf ,9,4) + '-' + substring(@CnpjCpf ,13,2)\n           END\n\n   ELSE\n         --CPF\n           BEGIN\n\n                SET @retorno = substring(@CnpjCpf ,1,3) + '.' + substring(@CnpjCpf ,4,3) + '.' + substring(@CnpjCpf ,7,3) + '-' + substring(@CnpjCpf ,10,2) \n\n           END\n\n      RETURN @retorno\nEND\n",
+      "mysql_sql": "\nDELIMITER $\nCREATE FUNCTION `formatarCNPJCPF`   (@CnpjCpf char(50))\nRETURNS CHAR(18)\n\nAS\n\nBEGIN\n      DECLARE @retorno VARCHAR(18)\n      set @CnpjCpf = replace(replace(replace(replace(@CnpjCpf,'.',''),'-',''),'/',''),' ','')\n\n      IF LEN(@CnpjCpf)= 14 \n          --CNPJ\n           BEGIN\n                SET @retorno = substring(@CnpjCpf ,1,2) + '.' + substring(@CnpjCpf ,3,3) + '.' + substring(@CnpjCpf ,6,3) + '/' + substring(@CnpjCpf ,9,4) + '-' + substring(@CnpjCpf ,13,2)\n           END\n\n   ELSE\n         --CPF\n           BEGIN\n\n                SET @retorno = substring(@CnpjCpf ,1,3) + '.' + substring(@CnpjCpf ,4,3) + '.' + substring(@CnpjCpf ,7,3) + '-' + substring(@CnpjCpf ,10,2) \n\n           END\n\n      RETURN @retorno\nEND\n\n$$\nDELIMITER ;",
+      "complexity": "Baixa - Conversão possível",
+      "migration_notes": [
+        "Conversão direta possível"
+      ]
+    },
+    {
+      "name": "GetLocalDateTime",
+      "return_type": "datetime",
+      "return_length": null,
+      "original_sql": "\n\nCREATE FUNCTION [dbo].[GetLocalDateTime]()\n  RETURNS datetime\n  WITH SCHEMABINDING\nAS\nBEGIN\n  DECLARE @getdate datetime\n  SET @getdate = SYSDATETIMEOFFSET() AT TIME ZONE 'E. South America Standard Time'\n  RETURN @getdate\nEND\n",
+      "mysql_sql": "\n\nDELIMITER $\nCREATE FUNCTION `GetLocalDateTime`()\n  RETURNS datetime\n  WITH SCHEMABINDING\nAS\nBEGIN\n  DECLARE @getdate datetime\n  SET @getdate = SYSDATETIMEOFFSET() AT TIME ZONE 'E. South America Standard Time'\n  RETURN @getdate\nEND\n\n$$\nDELIMITER ;",
+      "complexity": "Baixa - Conversão possível",
+      "migration_notes": [
+        "Conversão direta possível"
+      ]
+    },
+    {
+      "name": "Remove_AcentosEEspeciais",
+      "return_type": "varchar",
+      "return_length": 255,
+      "original_sql": "\nCREATE FUNCTION [dbo].[Remove_AcentosEEspeciais] ( @Texto VARCHAR(MAX) )\nRETURNS VARCHAR(255)\nAS BEGIN \n\nDECLARE @SemAcento VARCHAR(255)\n    IF @texto IS NULL \n        BEGIN\n            RETURN NULL\n        END\n    SELECT  @SemAcento = REPLACE(@Texto, 'á', 'a')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'à', 'a')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ã', 'a')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'â', 'a')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'é', 'e')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'è', 'e')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ê', 'e')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'í', 'i')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ì', 'i')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'î', 'i')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ó', 'o')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ò', 'o')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ô', 'o')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'õ', 'o')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ú', 'u')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ù', 'u')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'û', 'u')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ü', 'u')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ç', 'c')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, '´', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '`', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '''', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '\"', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '(', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, ')', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '[', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, ']', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '{', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '}', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '?', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '/', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '!', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '@', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '#', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '$', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '%', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '¨', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '&', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '*', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '-', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '_', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '+', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '.', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, ',', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '<', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '>', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '~', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '^', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ª', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, 'º', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '§', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '¹', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '²', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '³', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '£', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '¢', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '¬', '')\n    \n    RETURN ( LOWER(@SemAcento) )  \n   END\n",
+      "mysql_sql": "\nDELIMITER $\nCREATE FUNCTION `Remove_AcentosEEspeciais` ( @Texto VARCHAR(MAX) )\nRETURNS VARCHAR(255)\nAS BEGIN \n\nDECLARE @SemAcento VARCHAR(255)\n    IF @texto IS NULL \n        BEGIN\n            RETURN NULL\n        END\n    SELECT  @SemAcento = REPLACE(@Texto, 'á', 'a')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'à', 'a')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ã', 'a')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'â', 'a')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'é', 'e')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'è', 'e')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ê', 'e')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'í', 'i')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ì', 'i')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'î', 'i')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ó', 'o')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ò', 'o')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ô', 'o')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'õ', 'o')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ú', 'u')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ù', 'u')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'û', 'u')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ü', 'u')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ç', 'c')   \n    SELECT  @SemAcento = REPLACE(@SemAcento, '´', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '`', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '''', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '\"', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '(', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, ')', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '`', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '`', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '{', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '}', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '?', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '/', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '!', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '@', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '#', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '$', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '%', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '¨', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '&', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '*', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '-', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '_', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '+', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '.', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, ',', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '<', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '>', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '~', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '^', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, 'ª', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, 'º', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '§', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '¹', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '²', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '³', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '£', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '¢', '')\n    SELECT  @SemAcento = REPLACE(@SemAcento, '¬', '')\n    \n    RETURN ( LOWER(@SemAcento) )  \n   END\n\n$$\nDELIMITER ;",
+      "complexity": "Baixa - Conversão possível",
+      "migration_notes": [
+        "Conversão direta possível"
+      ]
+    }
+  ]
+}

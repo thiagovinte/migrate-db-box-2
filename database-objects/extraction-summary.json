@@ -1,0 +1,10 @@
+{
+  "extraction_date": "2025-10-13T21:21:44.128Z",
+  "summary": {
+    "views": 2,
+    "stored_procedures": 10,
+    "functions": 5,
+    "triggers": 3,
+    "total_objects": 20
+  }
+}

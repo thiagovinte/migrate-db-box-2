@@ -46,7 +46,7 @@ class DataMigrator {
   }
 
   // Verificar se tabela já foi migrada
-  async checkMigrationStatus(tableName, expectedRows) {
+  async checkMigrationStatus(tableName, expectedRows, identityColumn) {
     try {
       const mysqlConn = await this.db.connectMySQL();
       const [result] = await mysqlConn.execute(
@@ -55,22 +55,26 @@ class DataMigrator {
       const currentRows = parseInt(result[0].count);
       
       if (currentRows === 0) {
-        return { status: 'empty', currentRows, expectedRows };
+        return { status: 'empty', currentRows, expectedRows, lastId: null };
       }
       
       if (currentRows >= expectedRows) {
-        return { status: 'completed', currentRows, expectedRows };
+        return { status: 'completed', currentRows, expectedRows, lastId: null };
       }
       
-      // Se tem alguns dados mas não todos, verificar se é migração parcial
-      if (currentRows > 0 && currentRows < expectedRows) {
-        return { status: 'partial', currentRows, expectedRows };
+      // Se tem alguns dados mas não todos, verificar qual foi o último ID migrado
+      if (currentRows > 0 && currentRows < expectedRows && identityColumn) {
+        const [lastIdResult] = await mysqlConn.execute(
+          `SELECT MAX(\`${identityColumn.column_name}\`) as lastId FROM \`${tableName}\``
+        );
+        const lastId = lastIdResult[0].lastId;
+        return { status: 'partial', currentRows, expectedRows, lastId };
       }
       
-      return { status: 'pending', currentRows, expectedRows };
+      return { status: 'pending', currentRows, expectedRows, lastId: null };
     } catch (error) {
       if (error.code === 'ER_NO_SUCH_TABLE') {
-        return { status: 'no_table', currentRows: 0, expectedRows };
+        return { status: 'no_table', currentRows: 0, expectedRows, lastId: null };
       }
       throw error;
     }
@@ -85,8 +89,11 @@ class DataMigrator {
       return;
     }
 
+    // Identificar colunas identity
+    const identityColumn = schema.columns.find(col => col.is_identity);
+
     // Verificar status da migração
-    const migrationStatus = await this.checkMigrationStatus(tableName, expectedRows);
+    const migrationStatus = await this.checkMigrationStatus(tableName, expectedRows, identityColumn);
     
     switch (migrationStatus.status) {
       case 'completed':
@@ -95,6 +102,9 @@ class DataMigrator {
         
       case 'partial':
         logger.info(`⚠️  ${tableName}: ${migrationStatus.currentRows}/${expectedRows} registros - CONTINUANDO...`);
+        if (migrationStatus.lastId) {
+          logger.info(`🔄 Retomando migração a partir do ID ${migrationStatus.lastId}`);
+        }
         break;
         
       case 'empty':
@@ -108,47 +118,64 @@ class DataMigrator {
 
     const sqlPool = await this.db.connectSqlServer();
     const mysqlConn = await this.db.connectMySQL();
-
-    // Identificar colunas identity
-    const identityColumn = schema.columns.find(col => col.is_identity);
     
     try {
-      // Para migrações parciais, começar do último registro migrado
-      let offset = migrationStatus.status === 'partial' ? migrationStatus.currentRows : 0;
-      let migratedRows = 0;
+      let migratedRows = migrationStatus.currentRows || 0;
+      let whereClause = '';
       
-      if (offset > 0) {
-        logger.info(`🔄 Retomando migração a partir do registro ${offset}`);
+      // Para migrações parciais com identity, buscar apenas registros após o último ID migrado
+      if (migrationStatus.status === 'partial' && migrationStatus.lastId && identityColumn) {
+        whereClause = `WHERE ${identityColumn.column_name} > ${migrationStatus.lastId}`;
       }
 
-      while (offset < expectedRows) {
-        // Buscar lote do SQL Server
-        const query = `
+      // Buscar dados do SQL Server usando query baseada em cursor ao invés de OFFSET
+      let query;
+      if (identityColumn) {
+        query = `
           SELECT * FROM ${tableName}
-          ORDER BY ${identityColumn ? identityColumn.column_name : schema.columns[0].column_name}
-          OFFSET ${offset} ROWS
-          FETCH NEXT ${this.batchSize} ROWS ONLY
+          ${whereClause}
+          ORDER BY ${identityColumn.column_name}
         `;
+      } else {
+        // Se não tem identity, usar OFFSET tradicional (menos eficiente)
+        const offset = migrationStatus.currentRows || 0;
+        query = `
+          SELECT * FROM ${tableName}
+          ORDER BY ${schema.columns[0].column_name}
+          OFFSET ${offset} ROWS
+          FETCH NEXT ${expectedRows - offset} ROWS ONLY
+        `;
+      }
 
-        const result = await sqlPool.request().query(query);
-        const rows = result.recordset;
+      const result = await sqlPool.request().query(query);
+      const rows = result.recordset;
 
-        if (rows.length === 0) break;
+      if (rows.length === 0) {
+        logger.info(`✅ Nenhum registro novo para migrar em ${tableName}`);
+        return;
+      }
 
-        // Preparar dados para inserção
-        const columns = schema.columns.map(col => col.column_name);
-        const placeholders = columns.map(() => '?').join(', ');
+      // Preparar dados para inserção
+      const columns = schema.columns.map(col => col.column_name);
+      const placeholders = columns.map(() => '?').join(', ');
+      
+      // Se tem identity, usar INSERT IGNORE para evitar conflitos de ID
+      let insertSQL;
+      if (identityColumn) {
+        insertSQL = `INSERT IGNORE INTO \`${tableName}\` (\`${columns.join('`, `')}\`) VALUES (${placeholders})`;
+      } else {
+        insertSQL = `INSERT INTO \`${tableName}\` (\`${columns.join('`, `')}\`) VALUES (${placeholders})`;
+      }
+
+      // Processar registros em lotes
+      const totalRows = rows.length;
+      let processedInBatch = 0;
+
+      for (let i = 0; i < totalRows; i += this.batchSize) {
+        const batch = rows.slice(i, i + this.batchSize);
         
-        // Se tem identity, usar INSERT IGNORE para evitar conflitos de ID
-        let insertSQL;
-        if (identityColumn) {
-          insertSQL = `INSERT IGNORE INTO \`${tableName}\` (\`${columns.join('`, `')}\`) VALUES (${placeholders})`;
-        } else {
-          insertSQL = `INSERT INTO \`${tableName}\` (\`${columns.join('`, `')}\`) VALUES (${placeholders})`;
-        }
-
         // Inserir lote no MySQL
-        for (const row of rows) {
+        for (const row of batch) {
           try {
             const values = columns.map(col => {
               let value = row[col];
@@ -184,6 +211,8 @@ class DataMigrator {
               }
             }
 
+            processedInBatch++;
+
           } catch (insertError) {
             if (!insertError.message.includes('Duplicate entry')) {
               logger.error(`❌ Erro ao inserir registro em ${tableName}:`, insertError.message);
@@ -191,15 +220,14 @@ class DataMigrator {
           }
         }
 
-        migratedRows += rows.length;
-        offset += this.batchSize;
-
-        // Log progresso
-        const progress = ((migratedRows / schema.row_count) * 100).toFixed(1);
-        logger.info(`📈 ${tableName}: ${migratedRows}/${schema.row_count} (${progress}%)`);
+        // Log progresso para cada lote
+        const totalMigrated = migratedRows + processedInBatch;
+        const progress = ((totalMigrated / expectedRows) * 100).toFixed(1);
+        logger.info(`📈 ${tableName}: ${totalMigrated}/${expectedRows} (${progress}%)`);
       }
 
-      logger.info(`✅ Migração concluída: ${tableName} - ${migratedRows} registros`);
+      const finalMigrated = migratedRows + processedInBatch;
+      logger.info(`✅ Migração concluída: ${tableName} - ${processedInBatch} novos registros (total: ${finalMigrated})`);
 
     } catch (error) {
       logger.error(`❌ Erro na migração da tabela ${tableName}:`, error);

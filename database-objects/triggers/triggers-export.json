@@ -1,0 +1,79 @@
+{
+  "extracted_at": "2025-10-13T21:21:44.124Z",
+  "total_triggers": 3,
+  "triggers_by_table": {
+    "Produtos_Estoque_Historico": [
+      {
+        "trigger_name": "AtualizaEstoque",
+        "object_id": 939150391,
+        "table_name": "Produtos_Estoque_Historico",
+        "definition": "\nCREATE TRIGGER AtualizaEstoque\nON dbo.Produtos_Estoque_Historico\nAFTER INSERT\nAS\nBEGIN\n    SET NOCOUNT ON;\n    \n    declare @idProdutoInserted int\n    declare @tipoInserted varchar(255)\n    declare @quantidadeInserted int\n\n\n    SELECT\n        @idProdutoInserted=idProduto,\n        @tipoInserted=tipo,\n        @quantidadeInserted=quantidade\n    FROM\n        inserted i\n\n    if @tipoInserted = 'Remover' \n    BEGIN\n        set @quantidadeInserted = @quantidadeInserted * -1\n    END\n\n    update Produtos set estoque = estoque + @quantidadeInserted\n    where idProduto = @idProdutoInserted\n    \nEND\n",
+        "is_disabled": false,
+        "is_instead_of_trigger": false,
+        "event_type": "INSERT"
+      }
+    ],
+    "UsuariosContaDigitalTransacoes": [
+      {
+        "trigger_name": "AtualizaContaCorrente",
+        "object_id": 2062630391,
+        "table_name": "UsuariosContaDigitalTransacoes",
+        "definition": "\nCREATE TRIGGER [dbo].[AtualizaContaCorrente]\nON [dbo].[UsuariosContaDigitalTransacoes]\nAFTER INSERT\nAS\nBEGIN\n    SET NOCOUNT ON;\n\n    -- Atualiza o saldo para cada linha de 'inserted'\n    UPDATE u\n    SET u.saldo = u.saldo \n                 + CASE WHEN i.tipo = 'Débito' \n                        THEN -i.valor \n                        ELSE i.valor \n                   END\n    FROM \n        UsuariosContaDigital u\n        INNER JOIN inserted i ON u.idUsuarioContaDigital = i.idUsuarioContaDigital;\nEND\n",
+        "is_disabled": false,
+        "is_instead_of_trigger": false,
+        "event_type": "INSERT"
+      },
+      {
+        "trigger_name": "ValidaInsert",
+        "object_id": 1086626914,
+        "table_name": "UsuariosContaDigitalTransacoes",
+        "definition": "\r\nCREATE TRIGGER [dbo].[ValidaInsert]\r\nON [dbo].[UsuariosContaDigitalTransacoes]\r\nINSTEAD OF INSERT\r\nAS\r\nBEGIN\r\n    SET NOCOUNT ON;\r\n    INSERT INTO UsuariosContaDigitalTransacoes  (idUsuarioContaDigital, valor, tipo, idSaque, idTransacaoFinanceira, idSorteio, createdAt, updatedAt, deletedAt, idCupom, observacao)\r\n    SELECT idUsuarioContaDigital, valor, tipo, idSaque, idTransacaoFinanceira, idSorteio, createdAt, updatedAt, deletedAt, idCupom, observacao\r\n    FROM\r\n        inserted i\r\n    WHERE\r\n        i.idSorteio is null or \r\n        i.idSorteio NOT IN (\r\n            SELECT \r\n                idSorteio\r\n            FROM\r\n                UsuariosContaDigitalTransacoes where idSorteio is not null and tipo = 'Crédito'\r\n        );\r\nEND\r\n",
+        "is_disabled": false,
+        "is_instead_of_trigger": true,
+        "event_type": "INSERT"
+      }
+    ]
+  },
+  "triggers": [
+    {
+      "name": "AtualizaEstoque",
+      "table_name": "Produtos_Estoque_Historico",
+      "event_type": "INSERT",
+      "is_disabled": false,
+      "is_instead_of": false,
+      "original_sql": "\nCREATE TRIGGER AtualizaEstoque\nON dbo.Produtos_Estoque_Historico\nAFTER INSERT\nAS\nBEGIN\n    SET NOCOUNT ON;\n    \n    declare @idProdutoInserted int\n    declare @tipoInserted varchar(255)\n    declare @quantidadeInserted int\n\n\n    SELECT\n        @idProdutoInserted=idProduto,\n        @tipoInserted=tipo,\n        @quantidadeInserted=quantidade\n    FROM\n        inserted i\n\n    if @tipoInserted = 'Remover' \n    BEGIN\n        set @quantidadeInserted = @quantidadeInserted * -1\n    END\n\n    update Produtos set estoque = estoque + @quantidadeInserted\n    where idProduto = @idProdutoInserted\n    \nEND\n",
+      "mysql_sql": "\nDELIMITER $\nCREATE TRIGGER AtualizaEstoque\nON dbo.Produtos_Estoque_Historico\nAFTER INSERT\nAS\nBEGIN\n    SET NOCOUNT ON;\n    \n    declare @idProdutoInserted int\n    declare @tipoInserted varchar(255)\n    declare @quantidadeInserted int\n\n\n    SELECT\n        @idProdutoInserted=idProduto,\n        @tipoInserted=tipo,\n        @quantidadeInserted=quantidade\n    FROM\n        inserted i\n\n    if @tipoInserted = 'Remover' \n    BEGIN\n        set @quantidadeInserted = @quantidadeInserted * -1\n    END\n\n    update Produtos set estoque = estoque + @quantidadeInserted\n    where idProduto = @idProdutoInserted\n    \nEND\n\n$$\nDELIMITER ;",
+      "complexity": "Média - Revisão requerida",
+      "migration_notes": [
+        "INSERTED convertido para NEW"
+      ]
+    },
+    {
+      "name": "AtualizaContaCorrente",
+      "table_name": "UsuariosContaDigitalTransacoes",
+      "event_type": "INSERT",
+      "is_disabled": false,
+      "is_instead_of": false,
+      "original_sql": "\nCREATE TRIGGER [dbo].[AtualizaContaCorrente]\nON [dbo].[UsuariosContaDigitalTransacoes]\nAFTER INSERT\nAS\nBEGIN\n    SET NOCOUNT ON;\n\n    -- Atualiza o saldo para cada linha de 'inserted'\n    UPDATE u\n    SET u.saldo = u.saldo \n                 + CASE WHEN i.tipo = 'Débito' \n                        THEN -i.valor \n                        ELSE i.valor \n                   END\n    FROM \n        UsuariosContaDigital u\n        INNER JOIN inserted i ON u.idUsuarioContaDigital = i.idUsuarioContaDigital;\nEND\n",
+      "mysql_sql": "\nDELIMITER $\nCREATE TRIGGER `AtualizaContaCorrente`\nON `UsuariosContaDigitalTransacoes`\nAFTER INSERT\nAS\nBEGIN\n    SET NOCOUNT ON;\n\n    -- Atualiza o saldo para cada linha de 'inserted'\n    UPDATE u\n    SET u.saldo = u.saldo \n                 + CASE WHEN i.tipo = 'Débito' \n                        THEN -i.valor \n                        ELSE i.valor \n                   END\n    FROM \n        UsuariosContaDigital u\n        INNER JOIN inserted i ON u.idUsuarioContaDigital = i.idUsuarioContaDigital;\nEND\n\n$$\nDELIMITER ;",
+      "complexity": "Média - Revisão requerida",
+      "migration_notes": [
+        "INSERTED convertido para NEW"
+      ]
+    },
+    {
+      "name": "ValidaInsert",
+      "table_name": "UsuariosContaDigitalTransacoes",
+      "event_type": "INSERT",
+      "is_disabled": false,
+      "is_instead_of": true,
+      "original_sql": "\r\nCREATE TRIGGER [dbo].[ValidaInsert]\r\nON [dbo].[UsuariosContaDigitalTransacoes]\r\nINSTEAD OF INSERT\r\nAS\r\nBEGIN\r\n    SET NOCOUNT ON;\r\n    INSERT INTO UsuariosContaDigitalTransacoes  (idUsuarioContaDigital, valor, tipo, idSaque, idTransacaoFinanceira, idSorteio, createdAt, updatedAt, deletedAt, idCupom, observacao)\r\n    SELECT idUsuarioContaDigital, valor, tipo, idSaque, idTransacaoFinanceira, idSorteio, createdAt, updatedAt, deletedAt, idCupom, observacao\r\n    FROM\r\n        inserted i\r\n    WHERE\r\n        i.idSorteio is null or \r\n        i.idSorteio NOT IN (\r\n            SELECT \r\n                idSorteio\r\n            FROM\r\n                UsuariosContaDigitalTransacoes where idSorteio is not null and tipo = 'Crédito'\r\n        );\r\nEND\r\n",
+      "mysql_sql": "\r\nDELIMITER $\nCREATE TRIGGER `ValidaInsert`\r\nON `UsuariosContaDigitalTransacoes`\r\nINSTEAD OF INSERT\r\nAS\r\nBEGIN\r\n    SET NOCOUNT ON;\r\n    INSERT INTO UsuariosContaDigitalTransacoes  (idUsuarioContaDigital, valor, tipo, idSaque, idTransacaoFinanceira, idSorteio, createdAt, updatedAt, deletedAt, idCupom, observacao)\r\n    SELECT idUsuarioContaDigital, valor, tipo, idSaque, idTransacaoFinanceira, idSorteio, createdAt, updatedAt, deletedAt, idCupom, observacao\r\n    FROM\r\n        inserted i\r\n    WHERE\r\n        i.idSorteio is null or \r\n        i.idSorteio NOT IN (\r\n            SELECT \r\n                idSorteio\r\n            FROM\r\n                UsuariosContaDigitalTransacoes where idSorteio is not null and tipo = 'Crédito'\r\n        );\r\nEND\r\n\n$$\nDELIMITER ;",
+      "complexity": "Média - Revisão requerida",
+      "migration_notes": [
+        "INSERTED convertido para NEW",
+        "DELETED convertido para OLD"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "extracted_at": "2025-10-13T21:21:43.320Z",
+  "total_procedures": 10,
+  "procedures": [
+    {
+      "name": "atualizaFreteGratis_BaseadoRegistroFinanceiro",
+      "parameters": [
+        {
+          "PARAMETER_NAME": "@idRegistroFinanceiro",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        }
+      ],
+      "original_sql": "\nCREATE PROCEDURE [dbo].[atualizaFreteGratis_BaseadoRegistroFinanceiro]\n    @idRegistroFinanceiro\tINT\nAS\nBegin TRANSACTION\n\n    --declare @idRegistroFinanceiro  int\n    --set @idRegistroFinanceiro = 3125\n    declare @qtdDeveriaTer int \n    declare @qtdTem int\n    declare @idUsuario int \n    declare @contador INT\n    declare @isFrete bit \n\n    set @contador = 1\n    select @idUsuario  = idUsuario, @isFrete = case when isFrete is null then 0 else isFrete end from registros_financeiros where idRegistroFinanceiro = @idRegistroFinanceiro\n\nprint @isFrete\n    if(@isFrete=0 )\n        begin \n            select @qtdDeveriaTer = cast(sum(valor) / 150 as int) from Registros_Financeiros \n            where (isFrete = 0 or isFrete is null) and dataPagamento is not null and idUsuario  = @idUsuario \n            HAVING sum(valor) >= 150\n\n            select @qtdTem = count(*) from UsuariosFreteGratis where idUsuario  = @idUsuario\n\n            print @qtdDeveriaTer\n            print @qtdTem \n            if(@qtdDeveriaTer!=@qtdTem)\n                BEGIN\n                WHILE ( @contador <= @qtdDeveriaTer - @qtdTem)\n                    BEGIN\n                        insert into UsuariosFreteGratis (idUsuario)\n                        select @idUsuario\n                        SET @contador  = @contador  + 1\n                    END\n\n                END\n\n        end \n    \n\nCommit\n",
+      "mysql_sql": "\nDELIMITER $\nCREATE PROCEDURE `atualizaFreteGratis_BaseadoRegistroFinanceiro`\n    @idRegistroFinanceiro\tINT\nAS\nBegin TRANSACTION\n\n    --declare @idRegistroFinanceiro  int\n    --set @idRegistroFinanceiro = 3125\n    declare @qtdDeveriaTer int \n    declare @qtdTem int\n    declare @idUsuario int \n    declare @contador INT\n    declare @isFrete bit \n\n    set @contador = 1\n    select @idUsuario  = idUsuario, @isFrete = case when isFrete is null then 0 else isFrete end from registros_financeiros where idRegistroFinanceiro = @idRegistroFinanceiro\n\nprint @isFrete\n    if(@isFrete=0 )\n        begin \n            select @qtdDeveriaTer = cast(sum(valor) / 150 as int) from Registros_Financeiros \n            where (isFrete = 0 or isFrete is null) and dataPagamento is not null and idUsuario  = @idUsuario \n            HAVING sum(valor) >= 150\n\n            select @qtdTem = count(*) from UsuariosFreteGratis where idUsuario  = @idUsuario\n\n            print @qtdDeveriaTer\n            print @qtdTem \n            if(@qtdDeveriaTer!=@qtdTem)\n                BEGIN\n                WHILE ( @contador <= @qtdDeveriaTer - @qtdTem)\n                    BEGIN\n                        insert into UsuariosFreteGratis (idUsuario)\n                        select @idUsuario\n                        SET @contador  = @contador  + 1\n                    END\n\n                END\n\n        end \n    \n\nCommit\n\n$$\nDELIMITER ;",
+      "complexity": "Média - Revisão requerida",
+      "migration_notes": [
+        "PRINT statements convertidos para comentários"
+      ]
+    },
+    {
+      "name": "finalizaRegistroFinanceiro",
+      "parameters": [
+        {
+          "PARAMETER_NAME": "@idRegistroFinanceiro",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        }
+      ],
+      "original_sql": "\nCREATE PROCEDURE [dbo].[finalizaRegistroFinanceiro]\n    @idRegistroFinanceiro\tINT\nAS\nBegin TRANSACTION\ndeclare @valor DECIMAL(18,2)\ndeclare @idUsuario int\nIF NOT EXISTS (SELECT 1\nFROM UsuariosContaDigitalTransacoes\nwhere idTransacaoFinanceira = @idRegistroFinanceiro)\nBEGIN\n    insert into UsuariosContaDigitalTransacoes\n        (idUsuarioContaDigital, valor, tipo, idTransacaoFinanceira)\n    select b.idUsuarioContaDigital, a.valor, 'Crédito', idRegistroFinanceiro\n    from registros_financeiros a\n    inner join UsuariosContaDigital b on a.idUsuario = b.idUsuario\n    where idRegistroFinanceiro = @idRegistroFinanceiro and isFrete = 0 \n\n    --altera status da encomenda para Frete com pagamento finalizado\n    update b set b.idStatus = 8\n    from registros_financeiros a\n    inner join UsuariosEncomendas b on a.idEncomenda = b.idEncomenda\n    where idRegistroFinanceiro = @idRegistroFinanceiro and isFrete = 1 \n\n    insert into usuariosEncomendasTags (idEncomenda, idTag)\n    select b.idEncomenda, 12\n    from registros_financeiros a\n    inner join UsuariosEncomendas b on a.idEncomenda = b.idEncomenda\n    where idRegistroFinanceiro = @idRegistroFinanceiro and isFrete = 1 \n\n    exec [dbo].[atualizaFreteGratis_BaseadoRegistroFinanceiro]  @idRegistroFinanceiro\n\nEND\n\nCommit\n",
+      "mysql_sql": "\nDELIMITER $\nCREATE PROCEDURE `finalizaRegistroFinanceiro`\n    @idRegistroFinanceiro\tINT\nAS\nBegin TRANSACTION\ndeclare @valor DECIMAL(18,2)\ndeclare @idUsuario int\nIF NOT EXISTS (SELECT 1\nFROM UsuariosContaDigitalTransacoes\nwhere idTransacaoFinanceira = @idRegistroFinanceiro)\nBEGIN\n    insert into UsuariosContaDigitalTransacoes\n        (idUsuarioContaDigital, valor, tipo, idTransacaoFinanceira)\n    select b.idUsuarioContaDigital, a.valor, 'Crédito', idRegistroFinanceiro\n    from registros_financeiros a\n    inner join UsuariosContaDigital b on a.idUsuario = b.idUsuario\n    where idRegistroFinanceiro = @idRegistroFinanceiro and isFrete = 0 \n\n    --altera status da encomenda para Frete com pagamento finalizado\n    update b set b.idStatus = 8\n    from registros_financeiros a\n    inner join UsuariosEncomendas b on a.idEncomenda = b.idEncomenda\n    where idRegistroFinanceiro = @idRegistroFinanceiro and isFrete = 1 \n\n    insert into usuariosEncomendasTags (idEncomenda, idTag)\n    select b.idEncomenda, 12\n    from registros_financeiros a\n    inner join UsuariosEncomendas b on a.idEncomenda = b.idEncomenda\n    where idRegistroFinanceiro = @idRegistroFinanceiro and isFrete = 1 \n\n    exec `atualizaFreteGratis_BaseadoRegistroFinanceiro`  @idRegistroFinanceiro\n\nEND\n\nCommit\n\n$$\nDELIMITER ;",
+      "complexity": "Média - Revisão requerida",
+      "migration_notes": [
+        "Conversão direta possível"
+      ]
+    },
+    {
+      "name": "simular",
+      "parameters": [
+        {
+          "PARAMETER_NAME": "@idCaixa",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        }
+      ],
+      "original_sql": "\nCreate PROCEDURE [dbo].[simular]\n\t @idCaixa\tINT\nAS\n\tBegin TRANSACTION\n        DECLARE @Random NUMERIC(18,2)\n        SET @Random = (RAND() * 100) \n\n        declare @qtdItensCaixa int \n        declare @dinamicOdds NUMERIC(18,10)\n        select @qtdItensCaixa = count(idItem) from CaixasItens where idCaixa = @idCaixa and deletedAt is null \n        SET @dinamicOdds = 100.00 / @qtdItensCaixa\n\n        ;WITH OddIntervals AS\n        (\n            SELECT\n                O.*,\n                OddStart = CONVERT(DECIMAL(5,2), (ROW_NUMBER() OVER (ORDER BY O.[idItem]) - 1) * @dinamicOdds),\n                OddsEnd = CONVERT(DECIMAL(5,2), ROW_NUMBER() OVER (ORDER BY O.[idItem]) * @dinamicOdds)\n            FROM\n                CaixasItens AS O \n            WHERE\n                O.idCaixa = @idCaixa AND O.deletedAt IS NULL\n        )\n        SELECT\n            @Random as sorteado,\n            O.idItem,\n            O.odd, \n            O.nomeItem\n        FROM\n            OddIntervals AS O\n        WHERE\n            @Random > O.OddStart AND\n            @Random <= O.OddsEnd\n\n    Commit\n",
+      "mysql_sql": "\nDELIMITER $\nCREATE PROCEDURE `simular`\n\t @idCaixa\tINT\nAS\n\tBegin TRANSACTION\n        DECLARE @Random NUMERIC(18,2)\n        SET @Random = (RAND() * 100) \n\n        declare @qtdItensCaixa int \n        declare @dinamicOdds NUMERIC(18,10)\n        select @qtdItensCaixa = count(idItem) from CaixasItens where idCaixa = @idCaixa and deletedAt is null \n        SET @dinamicOdds = 100.00 / @qtdItensCaixa\n\n        ;WITH OddIntervals AS\n        (\n            SELECT\n                O.*,\n                OddStart = CONVERT(DECIMAL(5,2), (ROW_NUMBER() OVER (ORDER BY O.`idItem`) - 1) * @dinamicOdds),\n                OddsEnd = CONVERT(DECIMAL(5,2), ROW_NUMBER() OVER (ORDER BY O.`idItem`) * @dinamicOdds)\n            FROM\n                CaixasItens AS O \n            WHERE\n                O.idCaixa = @idCaixa AND O.deletedAt IS NULL\n        )\n        SELECT\n            @Random as sorteado,\n            O.idItem,\n            O.odd, \n            O.nomeItem\n        FROM\n            OddIntervals AS O\n        WHERE\n            @Random > O.OddStart AND\n            @Random <= O.OddsEnd\n\n    Commit\n\n$$\nDELIMITER ;",
+      "complexity": "Média - Revisão requerida",
+      "migration_notes": [
+        "Conversão direta possível"
+      ]
+    },
+    {
+      "name": "sortear",
+      "parameters": [
+        {
+          "PARAMETER_NAME": "@idCaixa",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        }
+      ],
+      "original_sql": "\r\nCREATE PROCEDURE [dbo].[sortear]\r\n\t @idCaixa\tINT\r\nAS\r\n\tBegin TRANSACTION\r\n        DECLARE @Random NUMERIC(18,2)\r\n        SET @Random = (RAND() * 100) \r\n        ;WITH OddIntervals AS\r\n        (\r\n            SELECT\r\n                O.*,\r\n                OddStart = CONVERT(DECIMAL(5,2), SUM(O.[odd]) OVER (ORDER BY O.[idItem]) - O.[odd]),\r\n                OddsEnd = CONVERT(DECIMAL(5,2), SUM(O.[odd]) OVER (ORDER BY O.[idItem]))\r\n            FROM\r\n                caixasItens AS O where idCaixa = @idCaixa and deletedAt is null \r\n        )\r\n        SELECT\r\n            @Random as sorteado,\r\n            O.idItem,\r\n            O.odd, \r\n            O.nomeItem,\r\n            O.idProduto\r\n        FROM\r\n            OddIntervals AS O\r\n        WHERE\r\n            @Random > O.OddStart AND\r\n            @Random <= O.OddsEnd\r\n\r\n    Commit\r\n",
+      "mysql_sql": "\r\nDELIMITER $\nCREATE PROCEDURE `sortear`\r\n\t @idCaixa\tINT\r\nAS\r\n\tBegin TRANSACTION\r\n        DECLARE @Random NUMERIC(18,2)\r\n        SET @Random = (RAND() * 100) \r\n        ;WITH OddIntervals AS\r\n        (\r\n            SELECT\r\n                O.*,\r\n                OddStart = CONVERT(DECIMAL(5,2), SUM(O.`odd`) OVER (ORDER BY O.`idItem`) - O.`odd`),\r\n                OddsEnd = CONVERT(DECIMAL(5,2), SUM(O.`odd`) OVER (ORDER BY O.`idItem`))\r\n            FROM\r\n                caixasItens AS O where idCaixa = @idCaixa and deletedAt is null \r\n        )\r\n        SELECT\r\n            @Random as sorteado,\r\n            O.idItem,\r\n            O.odd, \r\n            O.nomeItem,\r\n            O.idProduto\r\n        FROM\r\n            OddIntervals AS O\r\n        WHERE\r\n            @Random > O.OddStart AND\r\n            @Random <= O.OddsEnd\r\n\r\n    Commit\r\n\n$$\nDELIMITER ;",
+      "complexity": "Média - Revisão requerida",
+      "migration_notes": [
+        "Conversão direta possível"
+      ]
+    },
+    {
+      "name": "validaDuplicidade",
+      "parameters": [
+        {
+          "PARAMETER_NAME": "@idRegistroFinanceiro",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        }
+      ],
+      "original_sql": "\nCREATE PROCEDURE [dbo].[validaDuplicidade]\n    @idRegistroFinanceiro\tINT\nAS\nBegin TRANSACTION\n\n    declare @qtd int\n    declare @idMax int\n    declare @saldo decimal(18,2)\n    declare @idUsuarioContaDigital int\n\n    SELECT @qtd = count(idTransacao), @idMax = max(idTransacao)\n    FROM UsuariosContaDigitalTransacoes\n    where idTransacaoFinanceira = @idRegistroFinanceiro\n\n    select @idUsuarioContaDigital = idUsuarioContaDigital FROM UsuariosContaDigitalTransacoes\n    where idTransacaoFinanceira = @idRegistroFinanceiro\n\nIF(@qtd>1)\n    BEGIN\n        print @qtd\n        print @idMax\n        print @idUsuarioContaDigital\n        delete from UsuariosContaDigitalTransacoes where idTransacao =  @idMax\n\n        select @saldo = sum(case when tipo = 'Débito'then valor * -1 else valor end) \n        from UsuariosContaDigitalTransacoes a \n        where idUsuarioContaDigital = @idUsuarioContaDigital\n\n        update UsuariosContaDigital set saldo = @saldo where idUsuarioContaDigital = @idUsuarioContaDigital\n\n    END \nCommit\n",
+      "mysql_sql": "\nDELIMITER $\nCREATE PROCEDURE `validaDuplicidade`\n    @idRegistroFinanceiro\tINT\nAS\nBegin TRANSACTION\n\n    declare @qtd int\n    declare @idMax int\n    declare @saldo decimal(18,2)\n    declare @idUsuarioContaDigital int\n\n    SELECT @qtd = count(idTransacao), @idMax = max(idTransacao)\n    FROM UsuariosContaDigitalTransacoes\n    where idTransacaoFinanceira = @idRegistroFinanceiro\n\n    select @idUsuarioContaDigital = idUsuarioContaDigital FROM UsuariosContaDigitalTransacoes\n    where idTransacaoFinanceira = @idRegistroFinanceiro\n\nIF(@qtd>1)\n    BEGIN\n        print @qtd\n        print @idMax\n        print @idUsuarioContaDigital\n        delete from UsuariosContaDigitalTransacoes where idTransacao =  @idMax\n\n        select @saldo = sum(case when tipo = 'Débito'then valor * -1 else valor end) \n        from UsuariosContaDigitalTransacoes a \n        where idUsuarioContaDigital = @idUsuarioContaDigital\n\n        update UsuariosContaDigital set saldo = @saldo where idUsuarioContaDigital = @idUsuarioContaDigital\n\n    END \nCommit\n\n$$\nDELIMITER ;",
+      "complexity": "Média - Revisão requerida",
+      "migration_notes": [
+        "PRINT statements convertidos para comentários"
+      ]
+    },
+    {
+      "name": "validarSaldo",
+      "parameters": [
+        {
+          "PARAMETER_NAME": "@idCaixa",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        },
+        {
+          "PARAMETER_NAME": "@idusuario",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        }
+      ],
+      "original_sql": "CREATE PROCEDURE validarSaldo\n\t @idCaixa\tINT,\n   @idusuario\tINT\nAS\n\tBegin TRANSACTION\n        declare @valorCaixa decimal(18,2)\n        declare @saldo decimal(18,2)\n\n        select  @saldo = saldo from usuariosContaDigital where idusuario = @idusuario\n        select @valorCaixa = valor from caixas where idCaixa = @idCaixa\n\n        if(@saldo >= @valorCaixa)\n        begin\n          select 1 as liberado, @saldo  as saldo, @valorCaixa as valorCaixa\n        end\n        else begin\n          select 0 as liberado, @saldo  as saldo, @valorCaixa as valorCaixa\n        end \n\n    Commit\n",
+      "mysql_sql": "DELIMITER $\nCREATE PROCEDURE validarSaldo\n\t @idCaixa\tINT,\n   @idusuario\tINT\nAS\n\tBegin TRANSACTION\n        declare @valorCaixa decimal(18,2)\n        declare @saldo decimal(18,2)\n\n        select  @saldo = saldo from usuariosContaDigital where idusuario = @idusuario\n        select @valorCaixa = valor from caixas where idCaixa = @idCaixa\n\n        if(@saldo >= @valorCaixa)\n        begin\n          select 1 as liberado, @saldo  as saldo, @valorCaixa as valorCaixa\n        end\n        else begin\n          select 0 as liberado, @saldo  as saldo, @valorCaixa as valorCaixa\n        end \n\n    Commit\n\n$$\nDELIMITER ;",
+      "complexity": "Média - Revisão requerida",
+      "migration_notes": [
+        "Conversão direta possível"
+      ]
+    },
+    {
+      "name": "validarSorteio",
+      "parameters": [
+        {
+          "PARAMETER_NAME": "@idCaixa",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        },
+        {
+          "PARAMETER_NAME": "@idItem",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        },
+        {
+          "PARAMETER_NAME": "@idUsuario",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        }
+      ],
+      "original_sql": "CREATE PROCEDURE [dbo].[validarSorteio]\r\n    @idCaixa\tINT,\r\n    @idItem\tINT,\r\n    @idUsuario int\r\nAS\r\n\tBegin TRANSACTION\r\n        \r\n \r\n\r\ndeclare @valorItem decimal(18,2)\r\ndeclare @valorCaixa decimal(18,2)\r\ndeclare @qtdEstoque int\r\ndeclare @valorIntangivel BIT\r\ndeclare @regraBloqueio bit \r\ndeclare @alwaysLiberado bit\r\ndeclare @saldo DECIMAL(18,2)\r\ndeclare @valorUp decimal(18,2)\r\ndeclare @idEmpresa int\r\n\r\nset @valorUp= 100\r\n\r\n\r\nset @regraBloqueio =1\r\n\r\nset @alwaysLiberado = 0\r\n\r\nprint @idCaixa\r\nif @idCaixa = 32\r\n    Begin \r\n        set @alwaysLiberado = 1\r\n    end \r\n\r\nselect @valorItem = valor, @valorIntangivel = valorIntangivel\r\nfrom caixasItens\r\nwhere idCaixa = @idCaixa and idItem = @idItem\r\n\r\nselect @valorCaixa = valor, @idEmpresa = idEmpresa from caixas where idCaixa = @idCaixa\r\n\r\nselect @qtdEstoque = b.estoque \r\nfrom CaixasItens  a \r\ninner join produtos b on a.idProduto = b.idProduto\r\nwhere a.idItem = @idItem\r\n\r\nselect @saldo = saldo from UsuariosContaDigital where idUsuario = @idUsuario\r\n\r\nif @idEmpresa = 7 \r\n    BEGIN \r\n        set @valorUp = 5000\r\n    END\r\n\r\nif @saldo <=0 or @saldo < @valorCaixa\r\n    BEGIN\r\n       select 0 as liberado\r\n    END\r\nELSE BEGIN\r\n    if @alwaysLiberado = 1 \r\n        begin \r\n        select 1 as liberado\r\n        END\r\n        ELSE  Begin \r\n            if @qtdEstoque <=0\r\n            BEGIN\r\n                select 0 as liberado\r\n            END\r\n            ELSE BEGIN    \r\n                if((@valorItem>=@valorCaixa+@valorUp or @valorIntangivel = 1) and @regraBloqueio = 1)\r\n                BEGIN\r\n                    select 0 as liberado\r\n                END\r\n                ELSE BEGIN\r\n                    declare @liberadoApartirDe decimal(18,2)\r\n                    declare @valorPago decimal(18,2)\r\n                    declare @qtdVezes int\r\n                    declare @qtdLimite int \r\n\r\n                    select @liberadoApartirDe = liberadoApartirDe\r\n                    from caixasItens\r\n                    where idCaixa = @idCaixa and idItem = @idItem and (liberadoApartirDe is not null or liberadoApartirDe > 0)\r\n\r\n                    select @qtdLimite = qtdLimite from CaixasItens where idCaixa = @idCaixa and idItem = @idItem\r\n\r\n                    select @valorPago = case when sum(b.valor - b.valorCompra - a.vendidoPor ) is null then 0 else sum(b.valor - b.valorCompra-a.vendidoPor ) end\r\n                    from caixasSorteios a\r\n                        inner join view_caixa_itens b on a.idItemSorteado  = b.idItem\r\n                    where a.idCaixa = @idCaixa\r\n\r\n                    select @qtdVezes = case when count(idSorteio) is null then 0 else count(idSorteio) end\r\n                    from caixasSorteios\r\n                    where idCaixa = @idCaixa and idItemSorteado = @idItem\r\n                    \r\n                    \r\n                    if(@liberadoApartirDe is null or @liberadoApartirDe=0)\r\n                    begin\r\n                        select 1 as liberado\r\n                    end\r\n                    else begin\r\n                        select case when cast(@valorPago / @liberadoApartirDe as int) > @qtdVezes then 1 else 0 end as liberado\r\n                    end\r\n                    \r\n                END\r\n            END\r\n        END \r\n    END \r\ncommit\r\n",
+      "mysql_sql": "DELIMITER $\nCREATE PROCEDURE `validarSorteio`\r\n    @idCaixa\tINT,\r\n    @idItem\tINT,\r\n    @idUsuario int\r\nAS\r\n\tBegin TRANSACTION\r\n        \r\n \r\n\r\ndeclare @valorItem decimal(18,2)\r\ndeclare @valorCaixa decimal(18,2)\r\ndeclare @qtdEstoque int\r\ndeclare @valorIntangivel BIT\r\ndeclare @regraBloqueio bit \r\ndeclare @alwaysLiberado bit\r\ndeclare @saldo DECIMAL(18,2)\r\ndeclare @valorUp decimal(18,2)\r\ndeclare @idEmpresa int\r\n\r\nset @valorUp= 100\r\n\r\n\r\nset @regraBloqueio =1\r\n\r\nset @alwaysLiberado = 0\r\n\r\nprint @idCaixa\r\nif @idCaixa = 32\r\n    Begin \r\n        set @alwaysLiberado = 1\r\n    end \r\n\r\nselect @valorItem = valor, @valorIntangivel = valorIntangivel\r\nfrom caixasItens\r\nwhere idCaixa = @idCaixa and idItem = @idItem\r\n\r\nselect @valorCaixa = valor, @idEmpresa = idEmpresa from caixas where idCaixa = @idCaixa\r\n\r\nselect @qtdEstoque = b.estoque \r\nfrom CaixasItens  a \r\ninner join produtos b on a.idProduto = b.idProduto\r\nwhere a.idItem = @idItem\r\n\r\nselect @saldo = saldo from UsuariosContaDigital where idUsuario = @idUsuario\r\n\r\nif @idEmpresa = 7 \r\n    BEGIN \r\n        set @valorUp = 5000\r\n    END\r\n\r\nif @saldo <=0 or @saldo < @valorCaixa\r\n    BEGIN\r\n       select 0 as liberado\r\n    END\r\nELSE BEGIN\r\n    if @alwaysLiberado = 1 \r\n        begin \r\n        select 1 as liberado\r\n        END\r\n        ELSE  Begin \r\n            if @qtdEstoque <=0\r\n            BEGIN\r\n                select 0 as liberado\r\n            END\r\n            ELSE BEGIN    \r\n                if((@valorItem>=@valorCaixa+@valorUp or @valorIntangivel = 1) and @regraBloqueio = 1)\r\n                BEGIN\r\n                    select 0 as liberado\r\n                END\r\n                ELSE BEGIN\r\n                    declare @liberadoApartirDe decimal(18,2)\r\n                    declare @valorPago decimal(18,2)\r\n                    declare @qtdVezes int\r\n                    declare @qtdLimite int \r\n\r\n                    select @liberadoApartirDe = liberadoApartirDe\r\n                    from caixasItens\r\n                    where idCaixa = @idCaixa and idItem = @idItem and (liberadoApartirDe is not null or liberadoApartirDe > 0)\r\n\r\n                    select @qtdLimite = qtdLimite from CaixasItens where idCaixa = @idCaixa and idItem = @idItem\r\n\r\n                    select @valorPago = case when sum(b.valor - b.valorCompra - a.vendidoPor ) is null then 0 else sum(b.valor - b.valorCompra-a.vendidoPor ) end\r\n                    from caixasSorteios a\r\n                        inner join view_caixa_itens b on a.idItemSorteado  = b.idItem\r\n                    where a.idCaixa = @idCaixa\r\n\r\n                    select @qtdVezes = case when count(idSorteio) is null then 0 else count(idSorteio) end\r\n                    from caixasSorteios\r\n                    where idCaixa = @idCaixa and idItemSorteado = @idItem\r\n                    \r\n                    \r\n                    if(@liberadoApartirDe is null or @liberadoApartirDe=0)\r\n                    begin\r\n                        select 1 as liberado\r\n                    end\r\n                    else begin\r\n                        select case when cast(@valorPago / @liberadoApartirDe as int) > @qtdVezes then 1 else 0 end as liberado\r\n                    end\r\n                    \r\n                END\r\n            END\r\n        END \r\n    END \r\ncommit\r\n\n$$\nDELIMITER ;",
+      "complexity": "Média - Revisão requerida",
+      "migration_notes": [
+        "PRINT statements convertidos para comentários"
+      ]
+    },
+    {
+      "name": "validarSorteio_010525",
+      "parameters": [
+        {
+          "PARAMETER_NAME": "@idCaixa",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        },
+        {
+          "PARAMETER_NAME": "@idItem",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        },
+        {
+          "PARAMETER_NAME": "@idUsuario",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        }
+      ],
+      "original_sql": "CREATE PROCEDURE [dbo].[validarSorteio_010525]\r\n    @idCaixa\tINT,\r\n    @idItem\tINT,\r\n    @idUsuario int\r\nAS\r\n\tBegin TRANSACTION\r\n        \r\n\r\ndeclare @valorItem decimal(18,2)\r\ndeclare @valorCaixa decimal(18,2)\r\ndeclare @qtdEstoque int\r\ndeclare @valorIntangivel BIT\r\ndeclare @regraBloqueio bit \r\n\r\n\r\nset @regraBloqueio =1\r\n\r\n\r\nselect @valorItem = valor, @valorIntangivel = valorIntangivel\r\nfrom caixasItens\r\nwhere idCaixa = @idCaixa and idItem = @idItem\r\n\r\nselect @valorCaixa = valor from caixas where idCaixa = @idCaixa\r\n\r\nselect @qtdEstoque = b.estoque \r\nfrom CaixasItens  a \r\ninner join produtos b on a.idProduto = b.idProduto\r\nwhere a.idItem = @idItem\r\n\r\nif @qtdEstoque <=0\r\nBEGIN\r\n    select 0 as liberado\r\nEND\r\nELSE BEGIN    \r\n    if((@valorItem>=@valorCaixa+100 or @valorIntangivel = 1) and @regraBloqueio = 1)\r\n    BEGIN\r\n        select 0 as liberado\r\n    END\r\n    ELSE BEGIN\r\n        declare @liberadoApartirDe decimal(18,2)\r\n        declare @valorPago decimal(18,2)\r\n        declare @qtdVezes int\r\n        declare @qtdLimite int \r\n\r\n        select @liberadoApartirDe = liberadoApartirDe\r\n        from caixasItens\r\n        where idCaixa = @idCaixa and idItem = @idItem and (liberadoApartirDe is not null or liberadoApartirDe > 0)\r\n\r\n        select @qtdLimite = qtdLimite from CaixasItens where idCaixa = @idCaixa and idItem = @idItem\r\n\r\n        select @valorPago = case when sum(b.valor - b.valorCompra - a.vendidoPor ) is null then 0 else sum(b.valor - b.valorCompra-a.vendidoPor ) end\r\n        from caixasSorteios a\r\n            inner join view_caixa_itens b on a.idItemSorteado  = b.idItem\r\n        where a.idCaixa = @idCaixa\r\n\r\n        select @qtdVezes = case when count(idSorteio) is null then 0 else count(idSorteio) end\r\n        from caixasSorteios\r\n        where idCaixa = @idCaixa and idItemSorteado = @idItem\r\n        \r\n        \r\n        if(@liberadoApartirDe is null or @liberadoApartirDe=0)\r\n        begin\r\n            select 1 as liberado\r\n        end\r\n        else begin\r\n            select case when cast(@valorPago / @liberadoApartirDe as int) > @qtdVezes then 1 else 0 end as liberado\r\n        end\r\n        \r\n    END\r\nEND\r\ncommit\r\n",
+      "mysql_sql": "DELIMITER $\nCREATE PROCEDURE `validarSorteio_010525`\r\n    @idCaixa\tINT,\r\n    @idItem\tINT,\r\n    @idUsuario int\r\nAS\r\n\tBegin TRANSACTION\r\n        \r\n\r\ndeclare @valorItem decimal(18,2)\r\ndeclare @valorCaixa decimal(18,2)\r\ndeclare @qtdEstoque int\r\ndeclare @valorIntangivel BIT\r\ndeclare @regraBloqueio bit \r\n\r\n\r\nset @regraBloqueio =1\r\n\r\n\r\nselect @valorItem = valor, @valorIntangivel = valorIntangivel\r\nfrom caixasItens\r\nwhere idCaixa = @idCaixa and idItem = @idItem\r\n\r\nselect @valorCaixa = valor from caixas where idCaixa = @idCaixa\r\n\r\nselect @qtdEstoque = b.estoque \r\nfrom CaixasItens  a \r\ninner join produtos b on a.idProduto = b.idProduto\r\nwhere a.idItem = @idItem\r\n\r\nif @qtdEstoque <=0\r\nBEGIN\r\n    select 0 as liberado\r\nEND\r\nELSE BEGIN    \r\n    if((@valorItem>=@valorCaixa+100 or @valorIntangivel = 1) and @regraBloqueio = 1)\r\n    BEGIN\r\n        select 0 as liberado\r\n    END\r\n    ELSE BEGIN\r\n        declare @liberadoApartirDe decimal(18,2)\r\n        declare @valorPago decimal(18,2)\r\n        declare @qtdVezes int\r\n        declare @qtdLimite int \r\n\r\n        select @liberadoApartirDe = liberadoApartirDe\r\n        from caixasItens\r\n        where idCaixa = @idCaixa and idItem = @idItem and (liberadoApartirDe is not null or liberadoApartirDe > 0)\r\n\r\n        select @qtdLimite = qtdLimite from CaixasItens where idCaixa = @idCaixa and idItem = @idItem\r\n\r\n        select @valorPago = case when sum(b.valor - b.valorCompra - a.vendidoPor ) is null then 0 else sum(b.valor - b.valorCompra-a.vendidoPor ) end\r\n        from caixasSorteios a\r\n            inner join view_caixa_itens b on a.idItemSorteado  = b.idItem\r\n        where a.idCaixa = @idCaixa\r\n\r\n        select @qtdVezes = case when count(idSorteio) is null then 0 else count(idSorteio) end\r\n        from caixasSorteios\r\n        where idCaixa = @idCaixa and idItemSorteado = @idItem\r\n        \r\n        \r\n        if(@liberadoApartirDe is null or @liberadoApartirDe=0)\r\n        begin\r\n            select 1 as liberado\r\n        end\r\n        else begin\r\n            select case when cast(@valorPago / @liberadoApartirDe as int) > @qtdVezes then 1 else 0 end as liberado\r\n        end\r\n        \r\n    END\r\nEND\r\ncommit\r\n\n$$\nDELIMITER ;",
+      "complexity": "Média - Revisão requerida",
+      "migration_notes": [
+        "Conversão direta possível"
+      ]
+    },
+    {
+      "name": "validarSorteio_aux",
+      "parameters": [
+        {
+          "PARAMETER_NAME": "@idCaixa",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        },
+        {
+          "PARAMETER_NAME": "@idItem",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        }
+      ],
+      "original_sql": "CREATE PROCEDURE [dbo].[validarSorteio_aux]\n    @idCaixa\tINT,\n    @idItem\tINT\nAS\n\tBegin TRANSACTION\n        \n\ndeclare @valorItem decimal(18,2)\ndeclare @valorIntangivel BIT\ndeclare @regraBloqueio bit \n\nset @regraBloqueio =1\n\nselect @valorItem = valor, @valorIntangivel = valorIntangivel\nfrom caixasItens\nwhere idCaixa = @idCaixa and idItem = @idItem\n\nif((@valorItem>=1000 or @valorIntangivel = 1) and @regraBloqueio = 1)\nBEGIN\n    select 0 as liberado\nEND\nELSE BEGIN\n    declare @liberadoApartirDe decimal(18,2)\n    declare @valorPago decimal(18,2)\n    declare @qtdVezes int\n    select @liberadoApartirDe = liberadoApartirDe\n    from caixasItens\n    where idCaixa = @idCaixa and idItem = @idItem and (liberadoApartirDe is not null or liberadoApartirDe > 0)\n\n    select @valorPago = case when sum(b.valor - b.valorCompra - a.vendidoPor ) is null then 0 else sum(b.valor - b.valorCompra-a.vendidoPor ) end\n    from caixasSorteios a\n        inner join view_caixa_itens b on a.idItemSorteado  = b.idItem\n    where a.idCaixa = @idCaixa\n\n    select @qtdVezes = case when count(idSorteio) is null then 0 else count(idSorteio) end\n    from caixasSorteios\n    where idCaixa = @idCaixa and idItemSorteado = @idItem\n\n    if(@liberadoApartirDe is null or @liberadoApartirDe=0)\n    begin\n        select 1 as liberado\n    end\n    else begin\n        select case when cast(@valorPago / @liberadoApartirDe as int) > @qtdVezes then 1 else 0 end as liberado\n    end\nEND\ncommit\n",
+      "mysql_sql": "DELIMITER $\nCREATE PROCEDURE `validarSorteio_aux`\n    @idCaixa\tINT,\n    @idItem\tINT\nAS\n\tBegin TRANSACTION\n        \n\ndeclare @valorItem decimal(18,2)\ndeclare @valorIntangivel BIT\ndeclare @regraBloqueio bit \n\nset @regraBloqueio =1\n\nselect @valorItem = valor, @valorIntangivel = valorIntangivel\nfrom caixasItens\nwhere idCaixa = @idCaixa and idItem = @idItem\n\nif((@valorItem>=1000 or @valorIntangivel = 1) and @regraBloqueio = 1)\nBEGIN\n    select 0 as liberado\nEND\nELSE BEGIN\n    declare @liberadoApartirDe decimal(18,2)\n    declare @valorPago decimal(18,2)\n    declare @qtdVezes int\n    select @liberadoApartirDe = liberadoApartirDe\n    from caixasItens\n    where idCaixa = @idCaixa and idItem = @idItem and (liberadoApartirDe is not null or liberadoApartirDe > 0)\n\n    select @valorPago = case when sum(b.valor - b.valorCompra - a.vendidoPor ) is null then 0 else sum(b.valor - b.valorCompra-a.vendidoPor ) end\n    from caixasSorteios a\n        inner join view_caixa_itens b on a.idItemSorteado  = b.idItem\n    where a.idCaixa = @idCaixa\n\n    select @qtdVezes = case when count(idSorteio) is null then 0 else count(idSorteio) end\n    from caixasSorteios\n    where idCaixa = @idCaixa and idItemSorteado = @idItem\n\n    if(@liberadoApartirDe is null or @liberadoApartirDe=0)\n    begin\n        select 1 as liberado\n    end\n    else begin\n        select case when cast(@valorPago / @liberadoApartirDe as int) > @qtdVezes then 1 else 0 end as liberado\n    end\nEND\ncommit\n\n$$\nDELIMITER ;",
+      "complexity": "Média - Revisão requerida",
+      "migration_notes": [
+        "Conversão direta possível"
+      ]
+    },
+    {
+      "name": "validarSorteioSimulado",
+      "parameters": [
+        {
+          "PARAMETER_NAME": "@idCaixa",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        },
+        {
+          "PARAMETER_NAME": "@idItem",
+          "DATA_TYPE": "int",
+          "PARAMETER_MODE": "IN",
+          "CHARACTER_MAXIMUM_LENGTH": null
+        }
+      ],
+      "original_sql": "CREATE PROCEDURE [dbo].[validarSorteioSimulado]\n\t @idCaixa\tINT,\n   @idItem\tINT\nAS\n\tBegin TRANSACTION\n        declare @liberadoApartirDe decimal(18,2)\n        declare @valorPago decimal(18,2)\n        declare @qtdVezes int\n        select  @liberadoApartirDe = liberadoApartirDe from caixasItens where idCaixa = @idCaixa and idItem = @idItem and (liberadoApartirDe is not null or liberadoApartirDe > 0)\n        select @valorPago = case when sum(valorPago) is null then 0 else sum(valorPago) end from caixasSorteiosSimulados where idCaixa = @idCaixa\n        select @qtdVezes = case when count(idSorteio) is null then 0 else count(idSorteio) end  from caixasSorteiosSimulados where idCaixa = @idCaixa and idItemSorteado = @idItem\n        \n        /*print @valorPago\n        print @liberadoApartirDe\n        print @qtdVezes*/\n\n        if(@liberadoApartirDe is null or @liberadoApartirDe=0)\n        begin\n          select 1 as liberado\n        end\n        else begin\n          select case when cast(@valorPago / @liberadoApartirDe as int) > @qtdVezes then 1 else 0 end as liberado \n        end \n\n    Commit\n",
+      "mysql_sql": "DELIMITER $\nCREATE PROCEDURE `validarSorteioSimulado`\n\t @idCaixa\tINT,\n   @idItem\tINT\nAS\n\tBegin TRANSACTION\n        declare @liberadoApartirDe decimal(18,2)\n        declare @valorPago decimal(18,2)\n        declare @qtdVezes int\n        select  @liberadoApartirDe = liberadoApartirDe from caixasItens where idCaixa = @idCaixa and idItem = @idItem and (liberadoApartirDe is not null or liberadoApartirDe > 0)\n        select @valorPago = case when sum(valorPago) is null then 0 else sum(valorPago) end from caixasSorteiosSimulados where idCaixa = @idCaixa\n        select @qtdVezes = case when count(idSorteio) is null then 0 else count(idSorteio) end  from caixasSorteiosSimulados where idCaixa = @idCaixa and idItemSorteado = @idItem\n        \n        /*print @valorPago\n        print @liberadoApartirDe\n        print @qtdVezes*/\n\n        if(@liberadoApartirDe is null or @liberadoApartirDe=0)\n        begin\n          select 1 as liberado\n        end\n        else begin\n          select case when cast(@valorPago / @liberadoApartirDe as int) > @qtdVezes then 1 else 0 end as liberado \n        end \n\n    Commit\n\n$$\nDELIMITER ;",
+      "complexity": "Média - Revisão requerida",
+      "migration_notes": [
+        "PRINT statements convertidos para comentários"
+      ]
+    }
+  ]
+}
