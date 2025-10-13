@@ -58,12 +58,12 @@ class DatabaseObjectExtractor {
       );
 
       // Criar arquivo SQL para MySQL
-      let mysqlViewsSQL = '-- Views convertidas para MySQL\\n\\n';
+      let mysqlViewsSQL = '-- Views convertidas para MySQL\n\n';
       viewsData.views.forEach(view => {
-        mysqlViewsSQL += `-- View: ${view.name}\\n`;
-        mysqlViewsSQL += `-- Notas: ${view.notes}\\n`;
-        mysqlViewsSQL += `CREATE OR REPLACE VIEW \`${view.name}\` AS\\n`;
-        mysqlViewsSQL += `${view.mysql_sql};\\n\\n`;
+        mysqlViewsSQL += `-- View: ${view.name}\n`;
+        mysqlViewsSQL += `-- Notas: ${view.notes}\n`;
+        mysqlViewsSQL += `CREATE OR REPLACE VIEW \`${view.name}\` AS\n`;
+        mysqlViewsSQL += `${view.mysql_sql};\n\n`;
       });
 
       await fs.writeFile(
@@ -202,14 +202,14 @@ class DatabaseObjectExtractor {
     if (!sqlServerSQL) return '';
     
     return sqlServerSQL
-      .replace(/\\[dbo\\]\\./g, '') // Remove [dbo].
-      .replace(/\\[([^\\]]+)\\]/g, '`$1`') // [table] -> `table`
-      .replace(/GETDATE\\(\\)/g, 'NOW()') // GETDATE() -> NOW()
-      .replace(/ISNULL\\(/g, 'IFNULL(') // ISNULL -> IFNULL
-      .replace(/LEN\\(/g, 'LENGTH(') // LEN -> LENGTH
-      .replace(/DATEADD\\(/g, 'DATE_ADD(') // DATEADD -> DATE_ADD
-      .replace(/DATEDIFF\\(/g, 'DATEDIFF(') // Já compatível
-      .replace(/TOP\\s+(\\d+)/g, 'LIMIT $1') // TOP n -> LIMIT n
+      .replace(/\[dbo\]\./g, '') // Remove [dbo].
+      .replace(/\[([^\]]+)\]/g, '`$1`') // [table] -> `table`
+      .replace(/GETDATE\(\)/g, 'NOW()') // GETDATE() -> NOW()
+      .replace(/ISNULL\(/g, 'IFNULL(') // ISNULL -> IFNULL
+      .replace(/LEN\(/g, 'LENGTH(') // LEN -> LENGTH
+      .replace(/DATEADD\(/g, 'DATE_ADD(') // DATEADD -> DATE_ADD
+      .replace(/DATEDIFF\(/g, 'DATEDIFF(') // Já compatível
+      .replace(/TOP\s+(\d+)/g, 'LIMIT $1') // TOP n -> LIMIT n
       .trim();
   }
 
@@ -217,15 +217,15 @@ class DatabaseObjectExtractor {
     if (!definition) return '-- Definição não disponível';
     
     let converted = definition
-      .replace(/CREATE\\s+PROCEDURE/i, 'DELIMITER $$\\nCREATE PROCEDURE')
-      .replace(/\\[dbo\\]\\./g, '')
-      .replace(/\\[([^\\]]+)\\]/g, '`$1`')
-      .replace(/GETDATE\\(\\)/g, 'NOW()')
+      .replace(/CREATE\s+PROCEDURE/i, 'DELIMITER $$\nCREATE PROCEDURE')
+      .replace(/\[dbo\]\./g, '')
+      .replace(/\[([^\]]+)\]/g, '`$1`')
+      .replace(/GETDATE\(\)/g, 'NOW()')
       .replace(/@@ROWCOUNT/g, 'ROW_COUNT()')
-      .replace(/PRINT\\s+/g, '-- PRINT: ')
-      .replace(/RAISERROR\\s*\\(/g, 'SIGNAL SQLSTATE \\'45000\\' SET MESSAGE_TEXT = ');
+      .replace(/PRINT\s+/g, '-- PRINT: ')
+      .replace(/RAISERROR\s*\(/g, 'SIGNAL SQLSTATE \'45000\' SET MESSAGE_TEXT = ');
     
-    converted += '\\n$$\\nDELIMITER ;';
+    converted += '\n$$\nDELIMITER ;';
     return converted;
   }
 
@@ -233,12 +233,12 @@ class DatabaseObjectExtractor {
     if (!definition) return '-- Definição não disponível';
     
     return definition
-      .replace(/CREATE\\s+FUNCTION/i, 'DELIMITER $$\\nCREATE FUNCTION')
-      .replace(/\\[dbo\\]\\./g, '')
-      .replace(/\\[([^\\]]+)\\]/g, '`$1`')
-      .replace(/RETURNS\\s+([A-Z]+)/i, 'RETURNS $1')
-      .replace(/RETURN\\s+/g, 'RETURN ')
-      + '\\n$$\\nDELIMITER ;';
+      .replace(/CREATE\s+FUNCTION/i, 'DELIMITER $$\nCREATE FUNCTION')
+      .replace(/\[dbo\]\./g, '')
+      .replace(/\[([^\]]+)\]/g, '`$1`')
+      .replace(/RETURNS\s+([A-Z]+)/i, 'RETURNS $1')
+      .replace(/RETURN\s+/g, 'RETURN ')
+      + '\n$$\nDELIMITER ;';
   }
 
   // Análises de complexidade
@@ -246,8 +246,8 @@ class DatabaseObjectExtractor {
     if (!definition) return 'Simples';
     
     const complexFeatures = [
-      /JOIN/i, /UNION/i, /SUBQUERY/i, /CASE\\s+WHEN/i,
-      /WINDOW\\s+FUNCTION/i, /CTE/i, /PIVOT/i
+      /JOIN/i, /UNION/i, /SUBQUERY/i, /CASE\s+WHEN/i,
+      /WINDOW\s+FUNCTION/i, /CTE/i, /PIVOT/i
     ];
     
     const complexCount = complexFeatures.filter(regex => regex.test(definition)).length;
@@ -262,7 +262,7 @@ class DatabaseObjectExtractor {
     
     const complexFeatures = [
       /CURSOR/i, /WHILE/i, /TRY...CATCH/i, /TRANSACTION/i,
-      /DYNAMIC\\s+SQL/i, /EXEC\\s*\\(/i, /TEMP\\s+TABLE/i
+      /DYNAMIC\s+SQL/i, /EXEC\s*\(/i, /TEMP\s+TABLE/i
     ];
     
     const complexCount = complexFeatures.filter(regex => regex.test(definition)).length;
