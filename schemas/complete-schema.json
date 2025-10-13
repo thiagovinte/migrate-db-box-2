@@ -2400,7 +2400,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `Encomendas_Bling_vinculo` (\n  `idVinculo` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresaBling` INT,\n  `idEncomenda` INT,\n  `idBling` BIGINT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Encomendas_Bling_vinculo` (\n  `idVinculo` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresaBling` INT,\n  `idEncomenda` INT,\n  `idBling` BIGINT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idEmpresaBling`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "Usuarios_Bling_vinculo": {
     "table_name": "Usuarios_Bling_vinculo",
@@ -2485,7 +2485,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `Usuarios_Bling_vinculo` (\n  `idVinculo` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresaBling` INT,\n  `idUsuario` INT,\n  `idBling` BIGINT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Usuarios_Bling_vinculo` (\n  `idVinculo` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresaBling` INT,\n  `idUsuario` INT,\n  `idBling` BIGINT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idEmpresaBling`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "UsuariosFreteGratis": {
     "table_name": "UsuariosFreteGratis",
@@ -3306,7 +3306,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `Produtos_Bling_vinculo` (\n  `idVinculo` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresaBling` INT,\n  `idProduto` INT,\n  `idBling` BIGINT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Produtos_Bling_vinculo` (\n  `idVinculo` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresaBling` INT,\n  `idProduto` INT,\n  `idBling` BIGINT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idEmpresaBling`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "UsuariosEncomendasRelacionamento": {
     "table_name": "UsuariosEncomendasRelacionamento",
@@ -4324,7 +4324,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `Cupoms` (\n  `idCupom` INT NOT NULL AUTO_INCREMENT,\n  `cupom` VARCHAR(30) NOT NULL,\n  `dataInicio` DATE,\n  `dataFinal` DATE,\n  `valorCredito` DECIMAL(19,4) NOT NULL,\n  `quantidadeUtilizacao` INT DEFAULT 1,\n  `quantidadeUtilizado` INT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  `idEmpresa` INT\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Cupoms` (\n  `idCupom` INT NOT NULL AUTO_INCREMENT,\n  `cupom` VARCHAR(30) NOT NULL,\n  `dataInicio` DATE,\n  `dataFinal` DATE,\n  `valorCredito` DECIMAL(19,4) NOT NULL,\n  `quantidadeUtilizacao` INT DEFAULT 1,\n  `quantidadeUtilizado` INT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  PRIMARY KEY (`idCupom`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "Carrinho_Itens": {
     "table_name": "Carrinho_Itens",
@@ -6058,7 +6058,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `Empresas_Bling` (\n  `idEmpresaBling` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresa` INT,\n  `baseUrl` VARCHAR(255) NOT NULL,\n  `clientId` VARCHAR(255) NOT NULL,\n  `clientSecret` VARCHAR(255) NOT NULL,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Empresas_Bling` (\n  `idEmpresaBling` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresa` INT,\n  `baseUrl` VARCHAR(255) NOT NULL,\n  `clientId` VARCHAR(255) NOT NULL,\n  `clientSecret` VARCHAR(255) NOT NULL,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idEmpresaBling`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "integrationConfig": {
     "table_name": "integrationConfig",
