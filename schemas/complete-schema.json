@@ -1,0 +1,6705 @@
+{
+  "UsuariosContaDigitalTransacoes": {
+    "table_name": "UsuariosContaDigitalTransacoes",
+    "row_count": "756826",
+    "used_space_mb": 80.88,
+    "columns": [
+      {
+        "column_name": "idTransacao",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idUsuarioContaDigital",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valor",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "tipo",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idSaque",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idTransacaoFinanceira",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idSorteio",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idCupom",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "observacao",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosContaDigitalTransacoes` (\n  `idTransacao` INT NOT NULL AUTO_INCREMENT,\n  `idUsuarioContaDigital` INT,\n  `valor` DECIMAL(19,4),\n  `tipo` VARCHAR(255),\n  `idSaque` INT,\n  `idTransacaoFinanceira` INT,\n  `idSorteio` INT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idCupom` INT,\n  `observacao` VARCHAR(500),\n  PRIMARY KEY (`idTransacao`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "CaixasSorteiosSimulados": {
+    "table_name": "CaixasSorteiosSimulados",
+    "row_count": "434751",
+    "used_space_mb": 60.89,
+    "columns": [
+      {
+        "column_name": "idSorteio",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idCaixa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "chave",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idItemSorteado",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idUsuario",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorPago",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "oddSorteada",
+        "data_type": "numeric",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `CaixasSorteiosSimulados` (\n  `idSorteio` INT NOT NULL AUTO_INCREMENT,\n  `idCaixa` INT,\n  `chave` VARCHAR(255),\n  `idItemSorteado` INT,\n  `idUsuario` INT,\n  `valorPago` DECIMAL(19,4),\n  `oddSorteada` DECIMAL(18,2),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idSorteio`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Produtos_Estoque_Historico": {
+    "table_name": "Produtos_Estoque_Historico",
+    "row_count": "389027",
+    "used_space_mb": 26.8,
+    "columns": [
+      {
+        "column_name": "idProdutoHistorico",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idProduto",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "tipo",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "quantidade",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "isDefinitivo",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "processedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idSorteio",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Produtos_Estoque_Historico` (\n  `idProdutoHistorico` INT NOT NULL AUTO_INCREMENT,\n  `idProduto` INT NOT NULL,\n  `tipo` VARCHAR(255) NOT NULL,\n  `quantidade` INT NOT NULL,\n  `isDefinitivo` BOOLEAN,\n  `processedAt` DATETIME,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  `idSorteio` INT,\n  PRIMARY KEY (`idProdutoHistorico`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "CaixasSorteios": {
+    "table_name": "CaixasSorteios",
+    "row_count": "362236",
+    "used_space_mb": 76.52,
+    "columns": [
+      {
+        "column_name": "idSorteio",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idCaixa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "chave",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idItemSorteado",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idUsuario",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorPago",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "oddSorteada",
+        "data_type": "numeric",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "vendidoPor",
+        "data_type": "numeric",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEncomenda",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "isExtorno",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "Trocado",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `CaixasSorteios` (\n  `idSorteio` INT NOT NULL AUTO_INCREMENT,\n  `idCaixa` INT,\n  `chave` VARCHAR(255),\n  `idItemSorteado` INT,\n  `idUsuario` INT,\n  `valorPago` DECIMAL(19,4),\n  `oddSorteada` DECIMAL(18,2),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `vendidoPor` DECIMAL(18,2),\n  `idEncomenda` INT,\n  `isExtorno` BOOLEAN,\n  `Trocado` BOOLEAN DEFAULT 0,\n  PRIMARY KEY (`idSorteio`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Registros_Financeiros_Status_Historico": {
+    "table_name": "Registros_Financeiros_Status_Historico",
+    "row_count": "174008",
+    "used_space_mb": 16.56,
+    "columns": [
+      {
+        "column_name": "idRegistroStatus",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idRegistroFinanceiro",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "statusGalax",
+        "data_type": "nvarchar",
+        "max_length": 1000,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "descricaoStatus",
+        "data_type": "nvarchar",
+        "max_length": 1000,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Registros_Financeiros_Status_Historico` (\n  `idRegistroStatus` INT NOT NULL AUTO_INCREMENT,\n  `idRegistroFinanceiro` INT,\n  `statusGalax` VARCHAR(500),\n  `descricaoStatus` VARCHAR(500),\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idRegistroStatus`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Usuarios": {
+    "table_name": "Usuarios",
+    "row_count": "104502",
+    "used_space_mb": 125.34,
+    "columns": [
+      {
+        "column_name": "idUsuario",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idPerfil",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "nome",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "cpf",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "email",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "celular",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataNascimento",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "cep",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "endereco",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "numero",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "bairro",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "complemento",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "estado",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "cidade",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "pais",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "login",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "senha",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "chavePix",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idIndicador",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idCaixaResponsavel",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "cupomUtilizado",
+        "data_type": "varchar",
+        "max_length": 30,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idCupomUtilizado",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "fbClientId",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "ip",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "cpa",
+        "data_type": "decimal",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "cpaBase",
+        "data_type": "decimal",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "cpaPercentual",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "rev",
+        "data_type": "decimal",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "revBase",
+        "data_type": "decimal",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "revPercentual",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "chaveExterna",
+        "data_type": "varchar",
+        "max_length": 8,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(left(newid(),(8)))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataAfiliadoSolicitado",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataAfiliadoLiberado",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "fbc",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "userAgent",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "sexo",
+        "data_type": "varchar",
+        "max_length": 1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idBling",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "readOnlyAdm",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "integradoBling",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "password_reset_token",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "codigo_email",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idActiveCampaign",
+        "data_type": "varchar",
+        "max_length": 50,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "quantidadeDeposito",
+        "data_type": "decimal",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "ultimoLogin",
+        "data_type": "varchar",
+        "max_length": 50,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "totalEmCarteira",
+        "data_type": "decimal",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "quantidadeCaixasAbertas",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "isContaExemplo",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "caixasAbertas",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorQuantidadeCaixasAbertas",
+        "data_type": "decimal",
+        "max_length": 9,
+        "precision": 10,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "coins",
+        "data_type": "decimal",
+        "max_length": 9,
+        "precision": 10,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Usuarios` (\n  `idUsuario` INT NOT NULL AUTO_INCREMENT,\n  `idPerfil` INT,\n  `nome` VARCHAR(255),\n  `cpf` VARCHAR(255),\n  `email` VARCHAR(255),\n  `celular` VARCHAR(255),\n  `dataNascimento` DATETIME,\n  `cep` VARCHAR(255),\n  `endereco` VARCHAR(255),\n  `numero` VARCHAR(255),\n  `bairro` VARCHAR(255),\n  `complemento` VARCHAR(255),\n  `estado` VARCHAR(255),\n  `cidade` VARCHAR(255),\n  `pais` VARCHAR(255),\n  `login` VARCHAR(255),\n  `senha` VARCHAR(255),\n  `chavePix` VARCHAR(255),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idIndicador` INT,\n  `idCaixaResponsavel` INT,\n  `cupomUtilizado` VARCHAR(30),\n  `idCupomUtilizado` INT,\n  `fbClientId` VARCHAR(250),\n  `idEmpresa` INT,\n  `ip` VARCHAR(250),\n  `cpa` DECIMAL(18,2),\n  `cpaBase` DECIMAL(18,2),\n  `cpaPercentual` BOOLEAN,\n  `rev` DECIMAL(18,2),\n  `revBase` DECIMAL(18,2),\n  `revPercentual` BOOLEAN,\n  `chaveExterna` VARCHAR(8),\n  `dataAfiliadoSolicitado` DATETIME,\n  `dataAfiliadoLiberado` DATETIME,\n  `fbc` VARCHAR(500),\n  `userAgent` VARCHAR(500),\n  `sexo` VARCHAR(1),\n  `idBling` BIGINT,\n  `readOnlyAdm` BOOLEAN DEFAULT 0,\n  `integradoBling` BOOLEAN,\n  `password_reset_token` VARCHAR(255),\n  `codigo_email` VARCHAR(255),\n  `idActiveCampaign` VARCHAR(50),\n  `quantidadeDeposito` DECIMAL(18,2),\n  `ultimoLogin` VARCHAR(50),\n  `totalEmCarteira` DECIMAL(18,2),\n  `quantidadeCaixasAbertas` INT,\n  `isContaExemplo` BOOLEAN,\n  `caixasAbertas` TEXT,\n  `valorQuantidadeCaixasAbertas` DECIMAL(10,2),\n  `coins` DECIMAL(10,2),\n  PRIMARY KEY (`idUsuario`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "UsuariosContaDigital": {
+    "table_name": "UsuariosContaDigital",
+    "row_count": "104491",
+    "used_space_mb": 9.56,
+    "columns": [
+      {
+        "column_name": "idUsuarioContaDigital",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idUsuario",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "saldo",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosContaDigital` (\n  `idUsuarioContaDigital` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT,\n  `saldo` DECIMAL(19,4),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idUsuarioContaDigital`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Registros_Financeiros": {
+    "table_name": "Registros_Financeiros",
+    "row_count": "86329",
+    "used_space_mb": 574.71,
+    "columns": [
+      {
+        "column_name": "idRegistroFinanceiro",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idUsuario",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idTransacao",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idCarteira",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idTipoPagamento",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valor",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "formaPagamento",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dadosGerais",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idCartao",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idStatus",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((1))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "linkBoleto",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "nossoNumero",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "linhaDigitavel",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "isGalax",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataProcessamento",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataVencimentoOriginal",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataVencimento",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataPagamento",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorPagamento",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "retornoAPI",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "pixImage",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "pixQrCode",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "ultimoStatusGalax",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataUltimoStatusGalax",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "descricaoUltimoStatusGalax",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "needsReprocess",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idGalax",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "linkBoletoBox",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "veiculos",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataBaixaManual",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "baixadoPor",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "formaPagamentoReal",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idFormaPagamentoReal",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "requisicaoAPI",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "descricao",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "observacao",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "urlImagemBoleto",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idRegistroPai",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "isPagarme",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idExterno",
+        "data_type": "varchar",
+        "max_length": 1000,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "isFrete",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEncomenda",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "isTrio",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "isParpay",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Registros_Financeiros` (\n  `idRegistroFinanceiro` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT,\n  `idTransacao` INT,\n  `idCarteira` INT,\n  `idTipoPagamento` INT,\n  `valor` DECIMAL(19,4),\n  `formaPagamento` VARCHAR(250),\n  `dadosGerais` TEXT,\n  `idCartao` INT,\n  `idStatus` INT DEFAULT 1,\n  `linkBoleto` VARCHAR(500),\n  `nossoNumero` VARCHAR(500),\n  `linhaDigitavel` VARCHAR(500),\n  `isGalax` BOOLEAN,\n  `dataProcessamento` DATETIME,\n  `dataVencimentoOriginal` DATETIME,\n  `dataVencimento` DATETIME,\n  `dataPagamento` DATETIME,\n  `valorPagamento` DECIMAL(19,4),\n  `retornoAPI` TEXT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  `pixImage` TEXT,\n  `pixQrCode` TEXT,\n  `ultimoStatusGalax` VARCHAR(500),\n  `dataUltimoStatusGalax` DATETIME,\n  `descricaoUltimoStatusGalax` VARCHAR(500),\n  `needsReprocess` BOOLEAN,\n  `idGalax` INT,\n  `linkBoletoBox` TEXT,\n  `veiculos` TEXT,\n  `dataBaixaManual` DATETIME,\n  `baixadoPor` INT,\n  `formaPagamentoReal` VARCHAR(500),\n  `idFormaPagamentoReal` INT,\n  `requisicaoAPI` TEXT,\n  `descricao` VARCHAR(500),\n  `observacao` TEXT,\n  `urlImagemBoleto` VARCHAR(500),\n  `idRegistroPai` INT,\n  `idEmpresa` INT,\n  `isPagarme` BOOLEAN DEFAULT 0,\n  `idExterno` VARCHAR(1000),\n  `isFrete` BOOLEAN DEFAULT 0,\n  `idEncomenda` INT,\n  `isTrio` BOOLEAN DEFAULT 0,\n  `isParpay` BOOLEAN DEFAULT 0,\n  PRIMARY KEY (`idRegistroFinanceiro`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Registros_Financeiros_Webhooks": {
+    "table_name": "Registros_Financeiros_Webhooks",
+    "row_count": "83128",
+    "used_space_mb": 326.03,
+    "columns": [
+      {
+        "column_name": "idRegistroWebhook",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "log",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataProcessamento",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Registros_Financeiros_Webhooks` (\n  `idRegistroWebhook` INT NOT NULL AUTO_INCREMENT,\n  `log` TEXT,\n  `dataProcessamento` DATETIME,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idRegistroWebhook`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "UsuariosEncomendasItens": {
+    "table_name": "UsuariosEncomendasItens",
+    "row_count": "32954",
+    "used_space_mb": 3.98,
+    "columns": [
+      {
+        "column_name": "idEncomendaItem",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idEncomenda",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorFrete",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idItem",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idSorteio",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "variacoesSelecionadas",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "isSorteioEncomendaCancelada",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosEncomendasItens` (\n  `idEncomendaItem` INT NOT NULL AUTO_INCREMENT,\n  `idEncomenda` INT,\n  `valorFrete` DECIMAL(19,4),\n  `idItem` INT,\n  `idSorteio` INT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `variacoesSelecionadas` TEXT,\n  `isSorteioEncomendaCancelada` BOOLEAN,\n  PRIMARY KEY (`idEncomendaItem`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "UsuariosEncomendas": {
+    "table_name": "UsuariosEncomendas",
+    "row_count": "14718",
+    "used_space_mb": 3.17,
+    "columns": [
+      {
+        "column_name": "idEncomenda",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "chave",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(newid())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idUsuario",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorFrete",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idStatus",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idUsuarioResponsavel",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "observacao",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idUsuarioFrete",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "codigoRastreio",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idPedidoBling",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "integradoBling",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "sincronizandoBling",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "statusBloqueado",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idExterno",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataPrevistaEntrega",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "voucher",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosEncomendas` (\n  `idEncomenda` INT NOT NULL AUTO_INCREMENT,\n  `chave` VARCHAR(255),\n  `idUsuario` INT,\n  `valorFrete` DECIMAL(19,4),\n  `idStatus` INT,\n  `idUsuarioResponsavel` INT,\n  `observacao` TEXT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idUsuarioFrete` INT,\n  `codigoRastreio` VARCHAR(500),\n  `idPedidoBling` BIGINT,\n  `integradoBling` BOOLEAN,\n  `sincronizandoBling` BOOLEAN DEFAULT 0,\n  `statusBloqueado` BOOLEAN DEFAULT 0,\n  `idExterno` VARCHAR(250),\n  `dataPrevistaEntrega` VARCHAR(250),\n  `voucher` VARCHAR(255),\n  PRIMARY KEY (`idEncomenda`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "UsuariosEncomendasTags": {
+    "table_name": "UsuariosEncomendasTags",
+    "row_count": "13692",
+    "used_space_mb": 0.63,
+    "columns": [
+      {
+        "column_name": "idEncomendaTag",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idEncomenda",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idTag",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosEncomendasTags` (\n  `idEncomendaTag` INT NOT NULL AUTO_INCREMENT,\n  `idEncomenda` INT,\n  `idTag` INT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idEncomendaTag`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Encomendas_Bling_vinculo": {
+    "table_name": "Encomendas_Bling_vinculo",
+    "row_count": "13273",
+    "used_space_mb": 0.74,
+    "columns": [
+      {
+        "column_name": "idVinculo",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresaBling",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEncomenda",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idBling",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(NULL)",
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Encomendas_Bling_vinculo` (\n  `idVinculo` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresaBling` INT,\n  `idEncomenda` INT,\n  `idBling` BIGINT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Usuarios_Bling_vinculo": {
+    "table_name": "Usuarios_Bling_vinculo",
+    "row_count": "12404",
+    "used_space_mb": 0.7,
+    "columns": [
+      {
+        "column_name": "idVinculo",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresaBling",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idUsuario",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idBling",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(NULL)",
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Usuarios_Bling_vinculo` (\n  `idVinculo` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresaBling` INT,\n  `idUsuario` INT,\n  `idBling` BIGINT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "UsuariosFreteGratis": {
+    "table_name": "UsuariosFreteGratis",
+    "row_count": "9807",
+    "used_space_mb": 2.27,
+    "columns": [
+      {
+        "column_name": "idUsuarioFrete",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idUsuario",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEncomenda",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "chaveFrete",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(newid())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataUtilizacao",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosFreteGratis` (\n  `idUsuarioFrete` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT,\n  `idEncomenda` VARCHAR(255),\n  `chaveFrete` VARCHAR(255),\n  `dataUtilizacao` DATETIME,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idUsuarioFrete`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "DOM_Municipios": {
+    "table_name": "DOM_Municipios",
+    "row_count": "5571",
+    "used_space_mb": 0.51,
+    "columns": [
+      {
+        "column_name": "idCidade",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idUf",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "codigoCidade",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "nomeCidade",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "codigoSiafi",
+        "data_type": "varchar",
+        "max_length": 10,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `DOM_Municipios` (\n  `idCidade` INT NOT NULL AUTO_INCREMENT,\n  `idUf` INT NOT NULL,\n  `codigoCidade` INT NOT NULL,\n  `nomeCidade` VARCHAR(255) NOT NULL,\n  `codigoSiafi` VARCHAR(10),\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idCidade`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "CaixasItens": {
+    "table_name": "CaixasItens",
+    "row_count": "1129",
+    "used_space_mb": 1.11,
+    "columns": [
+      {
+        "column_name": "idItem",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idCaixa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "nomeItem",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "corHexa",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "imagem",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valor",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorIntangivel",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "odd",
+        "data_type": "decimal",
+        "max_length": 13,
+        "precision": 20,
+        "scale": 12,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "liberadoApartirDe",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "ordenacao",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorVenda",
+        "data_type": "numeric",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idProduto",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "qtdLimite",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `CaixasItens` (\n  `idItem` INT NOT NULL AUTO_INCREMENT,\n  `idCaixa` INT,\n  `nomeItem` VARCHAR(255),\n  `corHexa` VARCHAR(255),\n  `imagem` VARCHAR(255),\n  `valor` DECIMAL(19,4),\n  `valorIntangivel` BOOLEAN,\n  `odd` DECIMAL(20,12),\n  `liberadoApartirDe` DECIMAL(19,4),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `ordenacao` INT,\n  `valorVenda` DECIMAL(18,2),\n  `idProduto` INT,\n  `qtdLimite` INT,\n  PRIMARY KEY (`idItem`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Produtos": {
+    "table_name": "Produtos",
+    "row_count": "897",
+    "used_space_mb": 1.38,
+    "columns": [
+      {
+        "column_name": "idProduto",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "nomeProduto",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "corHexaDefault",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "imagem",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "descricao",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorEstimado",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorIntangivel",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorCompra",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorVenda",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "altura",
+        "data_type": "numeric",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "largura",
+        "data_type": "numeric",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "comprimento",
+        "data_type": "numeric",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "pesoGramas",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "sku",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "ncm",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "cst",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "cfop",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "jsonFacilitadorImpostos",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "variacoes",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idProdutoBling",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "integradoBling",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "estoque",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "status",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "coin",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "syncJobUpdate",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "skuReferencial",
+        "data_type": "varchar",
+        "max_length": 100,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "isVoucher",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "Vouchers",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Produtos` (\n  `idProduto` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresa` INT,\n  `nomeProduto` VARCHAR(255),\n  `corHexaDefault` VARCHAR(255),\n  `imagem` VARCHAR(255),\n  `descricao` TEXT,\n  `valorEstimado` DECIMAL(19,4),\n  `valorIntangivel` BOOLEAN,\n  `valorCompra` DECIMAL(19,4),\n  `valorVenda` DECIMAL(19,4),\n  `altura` DECIMAL(18,2),\n  `largura` DECIMAL(18,2),\n  `comprimento` DECIMAL(18,2),\n  `pesoGramas` INT,\n  `sku` VARCHAR(250),\n  `ncm` VARCHAR(250),\n  `cst` VARCHAR(250),\n  `cfop` VARCHAR(250),\n  `jsonFacilitadorImpostos` TEXT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `variacoes` TEXT,\n  `idProdutoBling` BIGINT,\n  `integradoBling` BOOLEAN,\n  `estoque` INT NOT NULL DEFAULT 0,\n  `status` INT,\n  `coin` BOOLEAN,\n  `syncJobUpdate` INT,\n  `skuReferencial` VARCHAR(100),\n  `isVoucher` INT NOT NULL,\n  `Vouchers` TEXT,\n  PRIMARY KEY (`idProduto`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Produtos_Bling_vinculo": {
+    "table_name": "Produtos_Bling_vinculo",
+    "row_count": "636",
+    "used_space_mb": 0.05,
+    "columns": [
+      {
+        "column_name": "idVinculo",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresaBling",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idProduto",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idBling",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(NULL)",
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Produtos_Bling_vinculo` (\n  `idVinculo` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresaBling` INT,\n  `idProduto` INT,\n  `idBling` BIGINT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "UsuariosEncomendasRelacionamento": {
+    "table_name": "UsuariosEncomendasRelacionamento",
+    "row_count": "247",
+    "used_space_mb": 0.04,
+    "columns": [
+      {
+        "column_name": "idEncomendaRelacionamento",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idEncomenda",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idUsuario",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "texto",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosEncomendasRelacionamento` (\n  `idEncomendaRelacionamento` INT NOT NULL AUTO_INCREMENT,\n  `idEncomenda` INT,\n  `idUsuario` INT,\n  `texto` TEXT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idEncomendaRelacionamento`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Caixas": {
+    "table_name": "Caixas",
+    "row_count": "80",
+    "used_space_mb": 0.14,
+    "columns": [
+      {
+        "column_name": "idCaixa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idTipo",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idPersonalidade",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "nomeCaixa",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "corHexa",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "banner",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "destaque",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "imagem",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "bannerMobile",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "urlCaixa",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valor",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "caixaCompleta",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "caixaNova",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "ordenacao",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "desconto",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "descricao",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorPromocao",
+        "data_type": "decimal",
+        "max_length": 9,
+        "precision": 10,
+        "scale": 2,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": "((0.00))",
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Caixas` (\n  `idCaixa` INT NOT NULL AUTO_INCREMENT,\n  `idTipo` INT,\n  `idPersonalidade` INT,\n  `nomeCaixa` VARCHAR(255),\n  `corHexa` VARCHAR(255),\n  `banner` VARCHAR(255),\n  `destaque` BOOLEAN,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `imagem` VARCHAR(500),\n  `bannerMobile` VARCHAR(500),\n  `urlCaixa` VARCHAR(250),\n  `valor` DECIMAL(19,4),\n  `caixaCompleta` BOOLEAN,\n  `caixaNova` BOOLEAN,\n  `ordenacao` INT,\n  `idEmpresa` INT,\n  `desconto` BOOLEAN,\n  `descricao` VARCHAR(500),\n  `valorPromocao` DECIMAL(10,2) NOT NULL DEFAULT 0.00,\n  PRIMARY KEY (`idCaixa`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Faq": {
+    "table_name": "Faq",
+    "row_count": "54",
+    "used_space_mb": 0.05,
+    "columns": [
+      {
+        "column_name": "idFaq",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "pergunta",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "resposta",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "ordenacao",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Faq` (\n  `idFaq` INT NOT NULL AUTO_INCREMENT,\n  `pergunta` TEXT,\n  `resposta` TEXT,\n  `ordenacao` INT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  PRIMARY KEY (`idFaq`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "tabelasFrete": {
+    "table_name": "tabelasFrete",
+    "row_count": "54",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idTabelaFrete",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "estado",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "cidade",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "pesoInicial",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "pesoFinal",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorFreteEstimado",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `tabelasFrete` (\n  `idTabelaFrete` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresa` INT,\n  `estado` VARCHAR(255),\n  `cidade` VARCHAR(255),\n  `pesoInicial` INT,\n  `pesoFinal` INT,\n  `valorFreteEstimado` DECIMAL(19,4),\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idTabelaFrete`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Textos": {
+    "table_name": "Textos",
+    "row_count": "31",
+    "used_space_mb": 0.79,
+    "columns": [
+      {
+        "column_name": "idTexto",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "titulo",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "texto",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "pagina",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "imagem1",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "imagem2",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Textos` (\n  `idTexto` INT NOT NULL AUTO_INCREMENT,\n  `titulo` TEXT,\n  `texto` TEXT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  `pagina` VARCHAR(250),\n  `imagem1` VARCHAR(250),\n  `imagem2` VARCHAR(250),\n  PRIMARY KEY (`idTexto`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Carrinhos": {
+    "table_name": "Carrinhos",
+    "row_count": "28",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idCarrinho",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idUsuario",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Carrinhos` (\n  `idCarrinho` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT NOT NULL,\n  `createdAt` DATETIME,\n  `deletedAt` DATETIME,\n  `updatedAt` DATETIME,\n  PRIMARY KEY (`idCarrinho`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "DOM_Uf": {
+    "table_name": "DOM_Uf",
+    "row_count": "28",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idUf",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "nomeUf",
+        "data_type": "varchar",
+        "max_length": 100,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `DOM_Uf` (\n  `idUf` INT NOT NULL AUTO_INCREMENT,\n  `nomeUf` VARCHAR(100) NOT NULL,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idUf`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Banners": {
+    "table_name": "Banners",
+    "row_count": "25",
+    "used_space_mb": 0.03,
+    "columns": [
+      {
+        "column_name": "idBanner",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "banner",
+        "data_type": "nvarchar",
+        "max_length": 1000,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "bannerMobile",
+        "data_type": "nvarchar",
+        "max_length": 1000,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "link",
+        "data_type": "nvarchar",
+        "max_length": 1000,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "ordenacao",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Banners` (\n  `idBanner` INT NOT NULL AUTO_INCREMENT,\n  `banner` VARCHAR(500),\n  `bannerMobile` VARCHAR(500),\n  `link` VARCHAR(500),\n  `ordenacao` INT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  PRIMARY KEY (`idBanner`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Cupoms": {
+    "table_name": "Cupoms",
+    "row_count": "25",
+    "used_space_mb": 0.04,
+    "columns": [
+      {
+        "column_name": "idCupom",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "cupom",
+        "data_type": "varchar",
+        "max_length": 30,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataInicio",
+        "data_type": "date",
+        "max_length": 3,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataFinal",
+        "data_type": "date",
+        "max_length": 3,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorCredito",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "quantidadeUtilizacao",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((1))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "quantidadeUtilizado",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Cupoms` (\n  `idCupom` INT NOT NULL AUTO_INCREMENT,\n  `cupom` VARCHAR(30) NOT NULL,\n  `dataInicio` DATE,\n  `dataFinal` DATE,\n  `valorCredito` DECIMAL(19,4) NOT NULL,\n  `quantidadeUtilizacao` INT DEFAULT 1,\n  `quantidadeUtilizado` INT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  `idEmpresa` INT\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Carrinho_Itens": {
+    "table_name": "Carrinho_Itens",
+    "row_count": "21",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idCarrinhoItem",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idCarrinho",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idProdutoShopping",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "quantidade",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": "((1))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Carrinho_Itens` (\n  `idCarrinhoItem` INT NOT NULL AUTO_INCREMENT,\n  `idCarrinho` INT NOT NULL,\n  `idProdutoShopping` INT NOT NULL,\n  `quantidade` INT NOT NULL DEFAULT 1,\n  `createdAt` DATETIME,\n  `deletedAt` DATETIME,\n  `updatedAt` DATETIME,\n  PRIMARY KEY (`idCarrinhoItem`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "DOM_TagsEncomenda": {
+    "table_name": "DOM_TagsEncomenda",
+    "row_count": "21",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idTag",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "descricao",
+        "data_type": "varchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `DOM_TagsEncomenda` (\n  `idTag` INT NOT NULL AUTO_INCREMENT,\n  `descricao` VARCHAR(500),\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idTag`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "TiposCaixa": {
+    "table_name": "TiposCaixa",
+    "row_count": "18",
+    "used_space_mb": 0.04,
+    "columns": [
+      {
+        "column_name": "idTipo",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "nomeTipo",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "icone",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `TiposCaixa` (\n  `idTipo` INT NOT NULL AUTO_INCREMENT,\n  `nomeTipo` VARCHAR(255),\n  `icone` TEXT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  PRIMARY KEY (`idTipo`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "DOM_DePara_Status_Registros_Financeiros_Galax": {
+    "table_name": "DOM_DePara_Status_Registros_Financeiros_Galax",
+    "row_count": "15",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idDePara",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "status_galax",
+        "data_type": "nvarchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idStatus_RegistroFinanceiro",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `DOM_DePara_Status_Registros_Financeiros_Galax` (\n  `idDePara` INT NOT NULL AUTO_INCREMENT,\n  `status_galax` VARCHAR(250),\n  `idStatus_RegistroFinanceiro` INT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idDePara`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "UsuariosCompras": {
+    "table_name": "UsuariosCompras",
+    "row_count": "12",
+    "used_space_mb": 0.05,
+    "columns": [
+      {
+        "column_name": "idCompra",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idUsuario",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idProdutoShopping",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idProduto",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "nomeProduto",
+        "data_type": "nvarchar",
+        "max_length": 800,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "quantidade",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": "((1))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "precoUnitarioCoins",
+        "data_type": "decimal",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "subtotalCoins",
+        "data_type": "decimal",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime2",
+        "max_length": 8,
+        "precision": 27,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime2",
+        "max_length": 8,
+        "precision": 27,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime2",
+        "max_length": 8,
+        "precision": 27,
+        "scale": 7,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosCompras` (\n  `idCompra` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT NOT NULL,\n  `idProdutoShopping` INT,\n  `idProduto` INT,\n  `nomeProduto` VARCHAR(400),\n  `quantidade` INT NOT NULL DEFAULT 1,\n  `precoUnitarioCoins` DECIMAL(18,2) NOT NULL,\n  `subtotalCoins` DECIMAL(18,2) NOT NULL,\n  `createdAt` DATETIME NOT NULL DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME NOT NULL DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idCompra`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "CarteirasCobranca_FormasPagamento": {
+    "table_name": "CarteirasCobranca_FormasPagamento",
+    "row_count": "10",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idCarteiraFormaPagamento",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idCarteira",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idTipoPagamento",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `CarteirasCobranca_FormasPagamento` (\n  `idCarteiraFormaPagamento` INT NOT NULL AUTO_INCREMENT,\n  `idCarteira` INT,\n  `idTipoPagamento` INT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idCarteiraFormaPagamento`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "DOM_StatusEncomendas": {
+    "table_name": "DOM_StatusEncomendas",
+    "row_count": "10",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idStatus",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "nomeStatus",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `DOM_StatusEncomendas` (\n  `idStatus` INT NOT NULL AUTO_INCREMENT,\n  `nomeStatus` VARCHAR(255),\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idStatus`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "MarcasPersonalidades": {
+    "table_name": "MarcasPersonalidades",
+    "row_count": "10",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idPersonalidade",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "nome",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "imagem",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `MarcasPersonalidades` (\n  `idPersonalidade` INT NOT NULL AUTO_INCREMENT,\n  `nome` VARCHAR(255),\n  `imagem` VARCHAR(255),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  PRIMARY KEY (`idPersonalidade`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Produtos_Shopping": {
+    "table_name": "Produtos_Shopping",
+    "row_count": "10",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idProdutoShopping",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idProduto",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valorVenda",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "status",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((1))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Produtos_Shopping` (\n  `idProdutoShopping` INT NOT NULL AUTO_INCREMENT,\n  `idProduto` INT NOT NULL,\n  `valorVenda` INT NOT NULL,\n  `status` BOOLEAN DEFAULT 1,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` TIMESTAMP,\n  PRIMARY KEY (`idProdutoShopping`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "CarteirasCobranca": {
+    "table_name": "CarteirasCobranca",
+    "row_count": "7",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idCarteira",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "tipoCarteira",
+        "data_type": "nvarchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "nomeCarteira",
+        "data_type": "nvarchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dadosBeneficiario",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dadosArquivoRemessa",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "carteiraJaEmitiuBoletos",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "proximoNossoNumero",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "percentualMulta",
+        "data_type": "numeric",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "percentualJurosDiario",
+        "data_type": "numeric",
+        "max_length": 9,
+        "precision": 18,
+        "scale": 2,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "aplicarFatorJuros",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "diasProtesto",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "instrucaoCaixa",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "numeroCarteira",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "isGalaxyPay",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dadosGalaxy",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "isPagarme",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dadosPagarme",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "principal",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "principalFrete",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "isTrio",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dadosTrio",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "isParpay",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dadosParpay",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `CarteirasCobranca` (\n  `idCarteira` INT NOT NULL AUTO_INCREMENT,\n  `tipoCarteira` VARCHAR(250) NOT NULL,\n  `nomeCarteira` VARCHAR(250) NOT NULL,\n  `dadosBeneficiario` TEXT NOT NULL,\n  `dadosArquivoRemessa` TEXT NOT NULL,\n  `carteiraJaEmitiuBoletos` BOOLEAN,\n  `proximoNossoNumero` INT,\n  `percentualMulta` DECIMAL(18,2),\n  `percentualJurosDiario` DECIMAL(18,2),\n  `aplicarFatorJuros` BOOLEAN,\n  `diasProtesto` INT,\n  `instrucaoCaixa` TEXT,\n  `numeroCarteira` VARCHAR(255),\n  `isGalaxyPay` BOOLEAN,\n  `dadosGalaxy` TEXT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  `isPagarme` BOOLEAN DEFAULT 0,\n  `dadosPagarme` TEXT,\n  `principal` BOOLEAN DEFAULT 0,\n  `principalFrete` BOOLEAN DEFAULT 0,\n  `isTrio` BOOLEAN DEFAULT 0,\n  `dadosTrio` TEXT,\n  `isParpay` BOOLEAN DEFAULT 0,\n  `dadosParpay` TEXT,\n  PRIMARY KEY (`idCarteira`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Empresas": {
+    "table_name": "Empresas",
+    "row_count": "7",
+    "used_space_mb": 0.06,
+    "columns": [
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "nomeEmpresa",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "cnpj",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "email",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "telefone",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "logo",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "razaoSocial",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "cep",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "endereco",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "numero",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "bairro",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "complemento",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "estado",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "cidade",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "pais",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "temaCor",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idExterno",
+        "data_type": "varchar",
+        "max_length": 36,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(newid())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataInicioOperacao",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "capaEmail",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "jsonConfiguracoes",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "socialLinks",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "gulpConfig",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "polishopConfig",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Empresas` (\n  `idEmpresa` INT NOT NULL AUTO_INCREMENT,\n  `nomeEmpresa` VARCHAR(255),\n  `cnpj` VARCHAR(255),\n  `email` VARCHAR(255),\n  `telefone` VARCHAR(255),\n  `logo` TEXT,\n  `razaoSocial` VARCHAR(255),\n  `cep` VARCHAR(255),\n  `endereco` VARCHAR(255),\n  `numero` VARCHAR(255),\n  `bairro` VARCHAR(255),\n  `complemento` VARCHAR(255),\n  `estado` VARCHAR(255),\n  `cidade` VARCHAR(255),\n  `pais` VARCHAR(255),\n  `temaCor` TEXT,\n  `idExterno` VARCHAR(36),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `dataInicioOperacao` DATETIME,\n  `capaEmail` VARCHAR(250),\n  `jsonConfiguracoes` TEXT,\n  `socialLinks` TEXT,\n  `gulpConfig` TEXT,\n  `polishopConfig` TEXT,\n  PRIMARY KEY (`idEmpresa`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "DOM_StatusRegistrosFinaceiros": {
+    "table_name": "DOM_StatusRegistrosFinaceiros",
+    "row_count": "6",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idStatus",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "nomeStatus",
+        "data_type": "nvarchar",
+        "max_length": 1000,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `DOM_StatusRegistrosFinaceiros` (\n  `idStatus` INT NOT NULL AUTO_INCREMENT,\n  `nomeStatus` VARCHAR(500),\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idStatus`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Categorias": {
+    "table_name": "Categorias",
+    "row_count": "4",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idCategoria",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "nome",
+        "data_type": "nvarchar",
+        "max_length": 200,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Categorias` (\n  `idCategoria` INT NOT NULL AUTO_INCREMENT,\n  `nome` VARCHAR(100) NOT NULL,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idCategoria`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Perfis": {
+    "table_name": "Perfis",
+    "row_count": "4",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idPerfil",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "nomePerfil",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "rules",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Perfis` (\n  `idPerfil` INT NOT NULL AUTO_INCREMENT,\n  `nomePerfil` VARCHAR(255),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  `rules` TEXT,\n  PRIMARY KEY (`idPerfil`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "DOM_TiposPagamentos": {
+    "table_name": "DOM_TiposPagamentos",
+    "row_count": "3",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idTipoPagamento",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "nomeTipoPagamento",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "padraoGalax",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "payedOutsideGalaxPay",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `DOM_TiposPagamentos` (\n  `idTipoPagamento` INT NOT NULL AUTO_INCREMENT,\n  `nomeTipoPagamento` VARCHAR(255),\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  `padraoGalax` VARCHAR(250),\n  `payedOutsideGalaxPay` BOOLEAN,\n  PRIMARY KEY (`idTipoPagamento`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Empresas_Bling": {
+    "table_name": "Empresas_Bling",
+    "row_count": "3",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idEmpresaBling",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "baseUrl",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "clientId",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "clientSecret",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(NULL)",
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Empresas_Bling` (\n  `idEmpresaBling` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresa` INT,\n  `baseUrl` VARCHAR(255) NOT NULL,\n  `clientId` VARCHAR(255) NOT NULL,\n  `clientSecret` VARCHAR(255) NOT NULL,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "integrationConfig": {
+    "table_name": "integrationConfig",
+    "row_count": "2",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "integrationName",
+        "data_type": "varchar",
+        "max_length": 100,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "client_id",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "client_secret",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "access_token",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "refresh_token",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "expires_in",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "token_type",
+        "data_type": "nvarchar",
+        "max_length": 100,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "scope",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valid_until",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "refresh_valid_until",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updated_at",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `integrationConfig` (\n  `id` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresa` INT NOT NULL,\n  `integrationName` VARCHAR(100) NOT NULL,\n  `client_id` VARCHAR(255) NOT NULL,\n  `client_secret` VARCHAR(255) NOT NULL,\n  `access_token` TEXT,\n  `refresh_token` TEXT,\n  `expires_in` INT,\n  `token_type` VARCHAR(50),\n  `scope` TEXT,\n  `valid_until` DATETIME,\n  `refresh_valid_until` DATETIME,\n  `created_at` DATETIME,\n  `updated_at` DATETIME,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "UsuariosCartoes": {
+    "table_name": "UsuariosCartoes",
+    "row_count": "2",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idUsuarioCartao",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idUsuario",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "numeroCartao",
+        "data_type": "varchar",
+        "max_length": 250,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "brand",
+        "data_type": "varchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "principal",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosCartoes` (\n  `idUsuarioCartao` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT,\n  `numeroCartao` VARCHAR(250),\n  `brand` TEXT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  `principal` BOOLEAN,\n  PRIMARY KEY (`idUsuarioCartao`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Produtos_Categorias": {
+    "table_name": "Produtos_Categorias",
+    "row_count": "1",
+    "used_space_mb": 0.02,
+    "columns": [
+      {
+        "column_name": "idProduto",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idCategoria",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Produtos_Categorias` (\n  `idProduto` INT NOT NULL,\n  `idCategoria` INT NOT NULL,\n  `createdAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idProduto`, `idCategoria`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "CarteirasCobranca_Recebedores": {
+    "table_name": "CarteirasCobranca_Recebedores",
+    "row_count": "0",
+    "used_space_mb": 0,
+    "columns": [
+      {
+        "column_name": "idRecebedor",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idEmpresa",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idCarteira",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "nomeRecebedor",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "porcentagem",
+        "data_type": "decimal",
+        "max_length": 5,
+        "precision": 5,
+        "scale": 2,
+        "is_nullable": false,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idExterno",
+        "data_type": "varchar",
+        "max_length": 255,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dadosPagarme",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "principal",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "((0))",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(NULL)",
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `CarteirasCobranca_Recebedores` (\n  `idRecebedor` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresa` INT,\n  `idCarteira` INT NOT NULL,\n  `nomeRecebedor` VARCHAR(255) NOT NULL,\n  `porcentagem` DECIMAL(5,2) NOT NULL,\n  `idExterno` VARCHAR(255),\n  `dadosPagarme` TEXT,\n  `principal` BOOLEAN DEFAULT 0,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idRecebedor`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Registros_Financeiros_Acoes": {
+    "table_name": "Registros_Financeiros_Acoes",
+    "row_count": "0",
+    "used_space_mb": 0,
+    "columns": [
+      {
+        "column_name": "idRegistroAcao",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idRegistroFinanceiro",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "acao",
+        "data_type": "nvarchar",
+        "max_length": 500,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "jsonFacilitador",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "dataProcessamento",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "idUsuario",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "(getdate())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "retornoApi",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "sucesso",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Registros_Financeiros_Acoes` (\n  `idRegistroAcao` INT NOT NULL AUTO_INCREMENT,\n  `idRegistroFinanceiro` INT,\n  `acao` VARCHAR(250),\n  `jsonFacilitador` TEXT,\n  `dataProcessamento` DATETIME,\n  `idUsuario` INT,\n  `createdAt` DATETIME,\n  `updatedAt` DATETIME,\n  `deletedAt` DATETIME,\n  `retornoApi` TEXT,\n  `sucesso` BOOLEAN,\n  PRIMARY KEY (`idRegistroAcao`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  },
+  "Saques": {
+    "table_name": "Saques",
+    "row_count": "0",
+    "used_space_mb": 0,
+    "columns": [
+      {
+        "column_name": "idSaque",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "default_value": null,
+        "is_primary_key": 1
+      },
+      {
+        "column_name": "idUsuario",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "valor",
+        "data_type": "money",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 4,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "createdAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "updatedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": "([dbo].[GetLocalDateTime]())",
+        "is_primary_key": 0
+      },
+      {
+        "column_name": "deletedAt",
+        "data_type": "datetime",
+        "max_length": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "is_identity": false,
+        "default_value": null,
+        "is_primary_key": 0
+      }
+    ],
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Saques` (\n  `idSaque` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT,\n  `valor` DECIMAL(19,4),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idSaque`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+  }
+}

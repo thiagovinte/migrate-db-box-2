@@ -1,0 +1,17 @@
+{
+  "name": "migrate-db-box",
+  "version": "1.0.0",
+  "description": "Migração SQL Server para MySQL",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "analyze": "node src/analyze.js",
+    "migrate": "node src/migrate.js"
+  },
+  "dependencies": {
+    "mssql": "^10.0.1",
+    "mysql2": "^3.6.3",
+    "dotenv": "^16.3.1",
+    "winston": "^3.11.0"
+  }
+}
