@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "analyze": "node src/analyze.js",
-    "migrate": "node src/migrate.js"
+    "migrate": "node src/migrate.js",
+    "extract-objects": "node src/extract-objects.js"
   },
   "dependencies": {
     "mssql": "^10.0.1",
