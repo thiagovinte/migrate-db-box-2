@@ -137,7 +137,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosContaDigitalTransacoes` (\n  `idTransacao` INT NOT NULL AUTO_INCREMENT,\n  `idUsuarioContaDigital` INT,\n  `valor` DECIMAL(19,4),\n  `tipo` VARCHAR(255),\n  `idSaque` INT,\n  `idTransacaoFinanceira` INT,\n  `idSorteio` INT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idCupom` INT,\n  `observacao` VARCHAR(500),\n  PRIMARY KEY (`idTransacao`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosContaDigitalTransacoes` (\n  `idTransacao` INT NOT NULL AUTO_INCREMENT,\n  `idUsuarioContaDigital` INT,\n  `valor` DECIMAL(19,4),\n  `tipo` VARCHAR(255),\n  `idSaque` INT,\n  `idTransacaoFinanceira` INT,\n  `idSorteio` INT,\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `idCupom` INT,\n  `observacao` VARCHAR(500),\n  PRIMARY KEY (`idTransacao`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "CaixasSorteiosSimulados": {
     "table_name": "CaixasSorteiosSimulados",
@@ -255,7 +255,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `CaixasSorteiosSimulados` (\n  `idSorteio` INT NOT NULL AUTO_INCREMENT,\n  `idCaixa` INT,\n  `chave` VARCHAR(255),\n  `idItemSorteado` INT,\n  `idUsuario` INT,\n  `valorPago` DECIMAL(19,4),\n  `oddSorteada` DECIMAL(18,2),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idSorteio`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `CaixasSorteiosSimulados` (\n  `idSorteio` INT NOT NULL AUTO_INCREMENT,\n  `idCaixa` INT,\n  `chave` VARCHAR(255),\n  `idItemSorteado` INT,\n  `idUsuario` INT,\n  `valorPago` DECIMAL(19,4),\n  `oddSorteada` DECIMAL(18,2),\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idSorteio`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "Produtos_Estoque_Historico": {
     "table_name": "Produtos_Estoque_Historico",
@@ -535,7 +535,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `CaixasSorteios` (\n  `idSorteio` INT NOT NULL AUTO_INCREMENT,\n  `idCaixa` INT,\n  `chave` VARCHAR(255),\n  `idItemSorteado` INT,\n  `idUsuario` INT,\n  `valorPago` DECIMAL(19,4),\n  `oddSorteada` DECIMAL(18,2),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `vendidoPor` DECIMAL(18,2),\n  `idEncomenda` INT,\n  `isExtorno` BOOLEAN,\n  `Trocado` BOOLEAN DEFAULT 0,\n  PRIMARY KEY (`idSorteio`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `CaixasSorteios` (\n  `idSorteio` INT NOT NULL AUTO_INCREMENT,\n  `idCaixa` INT,\n  `chave` VARCHAR(255),\n  `idItemSorteado` INT,\n  `idUsuario` INT,\n  `valorPago` DECIMAL(19,4),\n  `oddSorteada` DECIMAL(18,2),\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `vendidoPor` DECIMAL(18,2),\n  `idEncomenda` INT,\n  `isExtorno` BOOLEAN,\n  `Trocado` BOOLEAN DEFAULT 0,\n  PRIMARY KEY (`idSorteio`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "Registros_Financeiros_Status_Historico": {
     "table_name": "Registros_Financeiros_Status_Historico",
@@ -1222,7 +1222,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `Usuarios` (\n  `idUsuario` INT NOT NULL AUTO_INCREMENT,\n  `idPerfil` INT,\n  `nome` VARCHAR(255),\n  `cpf` VARCHAR(255),\n  `email` VARCHAR(255),\n  `celular` VARCHAR(255),\n  `dataNascimento` DATETIME,\n  `cep` VARCHAR(255),\n  `endereco` VARCHAR(255),\n  `numero` VARCHAR(255),\n  `bairro` VARCHAR(255),\n  `complemento` VARCHAR(255),\n  `estado` VARCHAR(255),\n  `cidade` VARCHAR(255),\n  `pais` VARCHAR(255),\n  `login` VARCHAR(255),\n  `senha` VARCHAR(255),\n  `chavePix` VARCHAR(255),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idIndicador` INT,\n  `idCaixaResponsavel` INT,\n  `cupomUtilizado` VARCHAR(30),\n  `idCupomUtilizado` INT,\n  `fbClientId` VARCHAR(250),\n  `idEmpresa` INT,\n  `ip` VARCHAR(250),\n  `cpa` DECIMAL(18,2),\n  `cpaBase` DECIMAL(18,2),\n  `cpaPercentual` BOOLEAN,\n  `rev` DECIMAL(18,2),\n  `revBase` DECIMAL(18,2),\n  `revPercentual` BOOLEAN,\n  `chaveExterna` VARCHAR(8),\n  `dataAfiliadoSolicitado` DATETIME,\n  `dataAfiliadoLiberado` DATETIME,\n  `fbc` VARCHAR(500),\n  `userAgent` VARCHAR(500),\n  `sexo` VARCHAR(1),\n  `idBling` BIGINT,\n  `readOnlyAdm` BOOLEAN DEFAULT 0,\n  `integradoBling` BOOLEAN,\n  `password_reset_token` VARCHAR(255),\n  `codigo_email` VARCHAR(255),\n  `idActiveCampaign` VARCHAR(50),\n  `quantidadeDeposito` DECIMAL(18,2),\n  `ultimoLogin` VARCHAR(50),\n  `totalEmCarteira` DECIMAL(18,2),\n  `quantidadeCaixasAbertas` INT,\n  `isContaExemplo` BOOLEAN,\n  `caixasAbertas` TEXT,\n  `valorQuantidadeCaixasAbertas` DECIMAL(10,2),\n  `coins` DECIMAL(10,2),\n  PRIMARY KEY (`idUsuario`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Usuarios` (\n  `idUsuario` INT NOT NULL AUTO_INCREMENT,\n  `idPerfil` INT,\n  `nome` VARCHAR(255),\n  `cpf` VARCHAR(255),\n  `email` VARCHAR(255),\n  `celular` VARCHAR(255),\n  `dataNascimento` DATETIME,\n  `cep` VARCHAR(255),\n  `endereco` VARCHAR(255),\n  `numero` VARCHAR(255),\n  `bairro` VARCHAR(255),\n  `complemento` VARCHAR(255),\n  `estado` VARCHAR(255),\n  `cidade` VARCHAR(255),\n  `pais` VARCHAR(255),\n  `login` VARCHAR(255),\n  `senha` VARCHAR(255),\n  `chavePix` VARCHAR(255),\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `idIndicador` INT,\n  `idCaixaResponsavel` INT,\n  `cupomUtilizado` VARCHAR(30),\n  `idCupomUtilizado` INT,\n  `fbClientId` VARCHAR(250),\n  `idEmpresa` INT,\n  `ip` VARCHAR(250),\n  `cpa` DECIMAL(18,2),\n  `cpaBase` DECIMAL(18,2),\n  `cpaPercentual` BOOLEAN,\n  `rev` DECIMAL(18,2),\n  `revBase` DECIMAL(18,2),\n  `revPercentual` BOOLEAN,\n  `chaveExterna` VARCHAR(8),\n  `dataAfiliadoSolicitado` DATETIME,\n  `dataAfiliadoLiberado` DATETIME,\n  `fbc` VARCHAR(500),\n  `userAgent` VARCHAR(500),\n  `sexo` VARCHAR(1),\n  `idBling` BIGINT,\n  `readOnlyAdm` BOOLEAN DEFAULT 0,\n  `integradoBling` BOOLEAN,\n  `password_reset_token` VARCHAR(255),\n  `codigo_email` VARCHAR(255),\n  `idActiveCampaign` VARCHAR(50),\n  `quantidadeDeposito` DECIMAL(18,2),\n  `ultimoLogin` VARCHAR(50),\n  `totalEmCarteira` DECIMAL(18,2),\n  `quantidadeCaixasAbertas` INT,\n  `isContaExemplo` BOOLEAN,\n  `caixasAbertas` TEXT,\n  `valorQuantidadeCaixasAbertas` DECIMAL(10,2),\n  `coins` DECIMAL(10,2),\n  PRIMARY KEY (`idUsuario`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "UsuariosContaDigital": {
     "table_name": "UsuariosContaDigital",
@@ -1296,7 +1296,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosContaDigital` (\n  `idUsuarioContaDigital` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT,\n  `saldo` DECIMAL(19,4),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idUsuarioContaDigital`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosContaDigital` (\n  `idUsuarioContaDigital` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT,\n  `saldo` DECIMAL(19,4),\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idUsuarioContaDigital`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "Registros_Financeiros": {
     "table_name": "Registros_Financeiros",
@@ -2024,7 +2024,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosEncomendasItens` (\n  `idEncomendaItem` INT NOT NULL AUTO_INCREMENT,\n  `idEncomenda` INT,\n  `valorFrete` DECIMAL(19,4),\n  `idItem` INT,\n  `idSorteio` INT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `variacoesSelecionadas` TEXT,\n  `isSorteioEncomendaCancelada` BOOLEAN,\n  PRIMARY KEY (`idEncomendaItem`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosEncomendasItens` (\n  `idEncomendaItem` INT NOT NULL AUTO_INCREMENT,\n  `idEncomenda` INT,\n  `valorFrete` DECIMAL(19,4),\n  `idItem` INT,\n  `idSorteio` INT,\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `variacoesSelecionadas` TEXT,\n  `isSorteioEncomendaCancelada` BOOLEAN,\n  PRIMARY KEY (`idEncomendaItem`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "UsuariosEncomendas": {
     "table_name": "UsuariosEncomendas",
@@ -2241,7 +2241,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosEncomendas` (\n  `idEncomenda` INT NOT NULL AUTO_INCREMENT,\n  `chave` VARCHAR(255),\n  `idUsuario` INT,\n  `valorFrete` DECIMAL(19,4),\n  `idStatus` INT,\n  `idUsuarioResponsavel` INT,\n  `observacao` TEXT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idUsuarioFrete` INT,\n  `codigoRastreio` VARCHAR(500),\n  `idPedidoBling` BIGINT,\n  `integradoBling` BOOLEAN,\n  `sincronizandoBling` BOOLEAN DEFAULT 0,\n  `statusBloqueado` BOOLEAN DEFAULT 0,\n  `idExterno` VARCHAR(250),\n  `dataPrevistaEntrega` VARCHAR(250),\n  `voucher` VARCHAR(255),\n  PRIMARY KEY (`idEncomenda`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosEncomendas` (\n  `idEncomenda` INT NOT NULL AUTO_INCREMENT,\n  `chave` VARCHAR(255),\n  `idUsuario` INT,\n  `valorFrete` DECIMAL(19,4),\n  `idStatus` INT,\n  `idUsuarioResponsavel` INT,\n  `observacao` TEXT,\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `idUsuarioFrete` INT,\n  `codigoRastreio` VARCHAR(500),\n  `idPedidoBling` BIGINT,\n  `integradoBling` BOOLEAN,\n  `sincronizandoBling` BOOLEAN DEFAULT 0,\n  `statusBloqueado` BOOLEAN DEFAULT 0,\n  `idExterno` VARCHAR(250),\n  `dataPrevistaEntrega` VARCHAR(250),\n  `voucher` VARCHAR(255),\n  PRIMARY KEY (`idEncomenda`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "UsuariosEncomendasTags": {
     "table_name": "UsuariosEncomendasTags",
@@ -2581,7 +2581,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosFreteGratis` (\n  `idUsuarioFrete` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT,\n  `idEncomenda` VARCHAR(255),\n  `chaveFrete` VARCHAR(255),\n  `dataUtilizacao` DATETIME,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idUsuarioFrete`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosFreteGratis` (\n  `idUsuarioFrete` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT,\n  `idEncomenda` VARCHAR(255),\n  `chaveFrete` VARCHAR(255),\n  `dataUtilizacao` DATETIME,\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idUsuarioFrete`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "DOM_Municipios": {
     "table_name": "DOM_Municipios",
@@ -2861,7 +2861,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `CaixasItens` (\n  `idItem` INT NOT NULL AUTO_INCREMENT,\n  `idCaixa` INT,\n  `nomeItem` VARCHAR(255),\n  `corHexa` VARCHAR(255),\n  `imagem` VARCHAR(255),\n  `valor` DECIMAL(19,4),\n  `valorIntangivel` BOOLEAN,\n  `odd` DECIMAL(20,12),\n  `liberadoApartirDe` DECIMAL(19,4),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `ordenacao` INT,\n  `valorVenda` DECIMAL(18,2),\n  `idProduto` INT,\n  `qtdLimite` INT,\n  PRIMARY KEY (`idItem`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `CaixasItens` (\n  `idItem` INT NOT NULL AUTO_INCREMENT,\n  `idCaixa` INT,\n  `nomeItem` VARCHAR(255),\n  `corHexa` VARCHAR(255),\n  `imagem` VARCHAR(255),\n  `valor` DECIMAL(19,4),\n  `valorIntangivel` BOOLEAN,\n  `odd` DECIMAL(20,12),\n  `liberadoApartirDe` DECIMAL(19,4),\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `ordenacao` INT,\n  `valorVenda` DECIMAL(18,2),\n  `idProduto` INT,\n  `qtdLimite` INT,\n  PRIMARY KEY (`idItem`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "Produtos": {
     "table_name": "Produtos",
@@ -3221,7 +3221,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `Produtos` (\n  `idProduto` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresa` INT,\n  `nomeProduto` VARCHAR(255),\n  `corHexaDefault` VARCHAR(255),\n  `imagem` VARCHAR(255),\n  `descricao` TEXT,\n  `valorEstimado` DECIMAL(19,4),\n  `valorIntangivel` BOOLEAN,\n  `valorCompra` DECIMAL(19,4),\n  `valorVenda` DECIMAL(19,4),\n  `altura` DECIMAL(18,2),\n  `largura` DECIMAL(18,2),\n  `comprimento` DECIMAL(18,2),\n  `pesoGramas` INT,\n  `sku` VARCHAR(250),\n  `ncm` VARCHAR(250),\n  `cst` VARCHAR(250),\n  `cfop` VARCHAR(250),\n  `jsonFacilitadorImpostos` TEXT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `variacoes` TEXT,\n  `idProdutoBling` BIGINT,\n  `integradoBling` BOOLEAN,\n  `estoque` INT NOT NULL DEFAULT 0,\n  `status` INT,\n  `coin` BOOLEAN,\n  `syncJobUpdate` INT,\n  `skuReferencial` VARCHAR(100),\n  `isVoucher` INT NOT NULL,\n  `Vouchers` TEXT,\n  PRIMARY KEY (`idProduto`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Produtos` (\n  `idProduto` INT NOT NULL AUTO_INCREMENT,\n  `idEmpresa` INT,\n  `nomeProduto` VARCHAR(255),\n  `corHexaDefault` VARCHAR(255),\n  `imagem` VARCHAR(255),\n  `descricao` TEXT,\n  `valorEstimado` DECIMAL(19,4),\n  `valorIntangivel` BOOLEAN,\n  `valorCompra` DECIMAL(19,4),\n  `valorVenda` DECIMAL(19,4),\n  `altura` DECIMAL(18,2),\n  `largura` DECIMAL(18,2),\n  `comprimento` DECIMAL(18,2),\n  `pesoGramas` INT,\n  `sku` VARCHAR(250),\n  `ncm` VARCHAR(250),\n  `cst` VARCHAR(250),\n  `cfop` VARCHAR(250),\n  `jsonFacilitadorImpostos` TEXT,\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `variacoes` TEXT,\n  `idProdutoBling` BIGINT,\n  `integradoBling` BOOLEAN,\n  `estoque` INT NOT NULL DEFAULT 0,\n  `status` INT,\n  `coin` BOOLEAN,\n  `syncJobUpdate` INT,\n  `skuReferencial` VARCHAR(100),\n  `isVoucher` INT NOT NULL,\n  `Vouchers` TEXT,\n  PRIMARY KEY (`idProduto`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "Produtos_Bling_vinculo": {
     "table_name": "Produtos_Bling_vinculo",
@@ -3391,7 +3391,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosEncomendasRelacionamento` (\n  `idEncomendaRelacionamento` INT NOT NULL AUTO_INCREMENT,\n  `idEncomenda` INT,\n  `idUsuario` INT,\n  `texto` TEXT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idEncomendaRelacionamento`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosEncomendasRelacionamento` (\n  `idEncomendaRelacionamento` INT NOT NULL AUTO_INCREMENT,\n  `idEncomenda` INT,\n  `idUsuario` INT,\n  `texto` TEXT,\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idEncomendaRelacionamento`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "Caixas": {
     "table_name": "Caixas",
@@ -3630,7 +3630,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `Caixas` (\n  `idCaixa` INT NOT NULL AUTO_INCREMENT,\n  `idTipo` INT,\n  `idPersonalidade` INT,\n  `nomeCaixa` VARCHAR(255),\n  `corHexa` VARCHAR(255),\n  `banner` VARCHAR(255),\n  `destaque` BOOLEAN,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `imagem` VARCHAR(500),\n  `bannerMobile` VARCHAR(500),\n  `urlCaixa` VARCHAR(250),\n  `valor` DECIMAL(19,4),\n  `caixaCompleta` BOOLEAN,\n  `caixaNova` BOOLEAN,\n  `ordenacao` INT,\n  `idEmpresa` INT,\n  `desconto` BOOLEAN,\n  `descricao` VARCHAR(500),\n  `valorPromocao` DECIMAL(10,2) NOT NULL DEFAULT 0.00,\n  PRIMARY KEY (`idCaixa`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Caixas` (\n  `idCaixa` INT NOT NULL AUTO_INCREMENT,\n  `idTipo` INT,\n  `idPersonalidade` INT,\n  `nomeCaixa` VARCHAR(255),\n  `corHexa` VARCHAR(255),\n  `banner` VARCHAR(255),\n  `destaque` BOOLEAN,\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `imagem` VARCHAR(500),\n  `bannerMobile` VARCHAR(500),\n  `urlCaixa` VARCHAR(250),\n  `valor` DECIMAL(19,4),\n  `caixaCompleta` BOOLEAN,\n  `caixaNova` BOOLEAN,\n  `ordenacao` INT,\n  `idEmpresa` INT,\n  `desconto` BOOLEAN,\n  `descricao` VARCHAR(500),\n  `valorPromocao` DECIMAL(10,2) NOT NULL DEFAULT 0.00,\n  PRIMARY KEY (`idCaixa`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "Faq": {
     "table_name": "Faq",
@@ -3726,7 +3726,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `Faq` (\n  `idFaq` INT NOT NULL AUTO_INCREMENT,\n  `pergunta` TEXT,\n  `resposta` TEXT,\n  `ordenacao` INT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  PRIMARY KEY (`idFaq`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Faq` (\n  `idFaq` INT NOT NULL AUTO_INCREMENT,\n  `pergunta` TEXT,\n  `resposta` TEXT,\n  `ordenacao` INT,\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  PRIMARY KEY (`idFaq`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "tabelasFrete": {
     "table_name": "tabelasFrete",
@@ -3962,7 +3962,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `Textos` (\n  `idTexto` INT NOT NULL AUTO_INCREMENT,\n  `titulo` TEXT,\n  `texto` TEXT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  `pagina` VARCHAR(250),\n  `imagem1` VARCHAR(250),\n  `imagem2` VARCHAR(250),\n  PRIMARY KEY (`idTexto`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Textos` (\n  `idTexto` INT NOT NULL AUTO_INCREMENT,\n  `titulo` TEXT,\n  `texto` TEXT,\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  `pagina` VARCHAR(250),\n  `imagem1` VARCHAR(250),\n  `imagem2` VARCHAR(250),\n  PRIMARY KEY (`idTexto`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "Carrinhos": {
     "table_name": "Carrinhos",
@@ -4195,7 +4195,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `Banners` (\n  `idBanner` INT NOT NULL AUTO_INCREMENT,\n  `banner` VARCHAR(500),\n  `bannerMobile` VARCHAR(500),\n  `link` VARCHAR(500),\n  `ordenacao` INT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  PRIMARY KEY (`idBanner`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Banners` (\n  `idBanner` INT NOT NULL AUTO_INCREMENT,\n  `banner` VARCHAR(500),\n  `bannerMobile` VARCHAR(500),\n  `link` VARCHAR(500),\n  `ordenacao` INT,\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  PRIMARY KEY (`idBanner`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "Cupoms": {
     "table_name": "Cupoms",
@@ -4557,7 +4557,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `TiposCaixa` (\n  `idTipo` INT NOT NULL AUTO_INCREMENT,\n  `nomeTipo` VARCHAR(255),\n  `icone` TEXT,\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  PRIMARY KEY (`idTipo`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `TiposCaixa` (\n  `idTipo` INT NOT NULL AUTO_INCREMENT,\n  `nomeTipo` VARCHAR(255),\n  `icone` TEXT,\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  PRIMARY KEY (`idTipo`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "DOM_DePara_Status_Registros_Financeiros_Galax": {
     "table_name": "DOM_DePara_Status_Registros_Financeiros_Galax",
@@ -4760,7 +4760,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosCompras` (\n  `idCompra` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT NOT NULL,\n  `idProdutoShopping` INT,\n  `idProduto` INT,\n  `nomeProduto` VARCHAR(400),\n  `quantidade` INT NOT NULL DEFAULT 1,\n  `precoUnitarioCoins` DECIMAL(18,2) NOT NULL,\n  `subtotalCoins` DECIMAL(18,2) NOT NULL,\n  `createdAt` DATETIME NOT NULL DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME NOT NULL DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idCompra`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `UsuariosCompras` (\n  `idCompra` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT NOT NULL,\n  `idProdutoShopping` INT,\n  `idProduto` INT,\n  `nomeProduto` VARCHAR(400),\n  `quantidade` INT NOT NULL DEFAULT 1,\n  `precoUnitarioCoins` DECIMAL(18,2) NOT NULL,\n  `subtotalCoins` DECIMAL(18,2) NOT NULL,\n  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idCompra`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "CarteirasCobranca_FormasPagamento": {
     "table_name": "CarteirasCobranca_FormasPagamento",
@@ -4982,7 +4982,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `MarcasPersonalidades` (\n  `idPersonalidade` INT NOT NULL AUTO_INCREMENT,\n  `nome` VARCHAR(255),\n  `imagem` VARCHAR(255),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  PRIMARY KEY (`idPersonalidade`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `MarcasPersonalidades` (\n  `idPersonalidade` INT NOT NULL AUTO_INCREMENT,\n  `nome` VARCHAR(255),\n  `imagem` VARCHAR(255),\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  PRIMARY KEY (`idPersonalidade`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "Produtos_Shopping": {
     "table_name": "Produtos_Shopping",
@@ -5666,7 +5666,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `Empresas` (\n  `idEmpresa` INT NOT NULL AUTO_INCREMENT,\n  `nomeEmpresa` VARCHAR(255),\n  `cnpj` VARCHAR(255),\n  `email` VARCHAR(255),\n  `telefone` VARCHAR(255),\n  `logo` TEXT,\n  `razaoSocial` VARCHAR(255),\n  `cep` VARCHAR(255),\n  `endereco` VARCHAR(255),\n  `numero` VARCHAR(255),\n  `bairro` VARCHAR(255),\n  `complemento` VARCHAR(255),\n  `estado` VARCHAR(255),\n  `cidade` VARCHAR(255),\n  `pais` VARCHAR(255),\n  `temaCor` TEXT,\n  `idExterno` VARCHAR(36),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `dataInicioOperacao` DATETIME,\n  `capaEmail` VARCHAR(250),\n  `jsonConfiguracoes` TEXT,\n  `socialLinks` TEXT,\n  `gulpConfig` TEXT,\n  `polishopConfig` TEXT,\n  PRIMARY KEY (`idEmpresa`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Empresas` (\n  `idEmpresa` INT NOT NULL AUTO_INCREMENT,\n  `nomeEmpresa` VARCHAR(255),\n  `cnpj` VARCHAR(255),\n  `email` VARCHAR(255),\n  `telefone` VARCHAR(255),\n  `logo` TEXT,\n  `razaoSocial` VARCHAR(255),\n  `cep` VARCHAR(255),\n  `endereco` VARCHAR(255),\n  `numero` VARCHAR(255),\n  `bairro` VARCHAR(255),\n  `complemento` VARCHAR(255),\n  `estado` VARCHAR(255),\n  `cidade` VARCHAR(255),\n  `pais` VARCHAR(255),\n  `temaCor` TEXT,\n  `idExterno` VARCHAR(36),\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `dataInicioOperacao` DATETIME,\n  `capaEmail` VARCHAR(250),\n  `jsonConfiguracoes` TEXT,\n  `socialLinks` TEXT,\n  `gulpConfig` TEXT,\n  `polishopConfig` TEXT,\n  PRIMARY KEY (`idEmpresa`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "DOM_StatusRegistrosFinaceiros": {
     "table_name": "DOM_StatusRegistrosFinaceiros",
@@ -5877,7 +5877,7 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `Perfis` (\n  `idPerfil` INT NOT NULL AUTO_INCREMENT,\n  `nomePerfil` VARCHAR(255),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  `rules` TEXT,\n  PRIMARY KEY (`idPerfil`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Perfis` (\n  `idPerfil` INT NOT NULL AUTO_INCREMENT,\n  `nomePerfil` VARCHAR(255),\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  `idEmpresa` INT,\n  `rules` TEXT,\n  PRIMARY KEY (`idPerfil`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   },
   "DOM_TiposPagamentos": {
     "table_name": "DOM_TiposPagamentos",
@@ -6700,6 +6700,6 @@
         "is_primary_key": 0
       }
     ],
-    "create_sql": "CREATE TABLE IF NOT EXISTS `Saques` (\n  `idSaque` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT,\n  `valor` DECIMAL(19,4),\n  `createdAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `updatedAt` DATETIME DEFAULT [dbo].[GetLocalDateTime],\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idSaque`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
+    "create_sql": "CREATE TABLE IF NOT EXISTS `Saques` (\n  `idSaque` INT NOT NULL AUTO_INCREMENT,\n  `idUsuario` INT,\n  `valor` DECIMAL(19,4),\n  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP,\n  `deletedAt` DATETIME,\n  PRIMARY KEY (`idSaque`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;"
   }
 }
