@@ -1,0 +1,445 @@
+{
+  "extracted_at": "2025-10-13T22:29:43.726Z",
+  "total_indexes": 19,
+  "total_tables": 9,
+  "indexes_by_table": {
+    "Caixas": [
+      {
+        "table_name": "Caixas",
+        "index_name": "iCaixa1",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idCaixa ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [iCaixa1] ON [Caixas] (idCaixa ASC)",
+        "mysql_sql": "CREATE INDEX `iCaixa1` ON `Caixas` (`idCaixa`)"
+      },
+      {
+        "table_name": "Caixas",
+        "index_name": "iCaixa2",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idTipo ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [iCaixa2] ON [Caixas] (idTipo ASC)",
+        "mysql_sql": "CREATE INDEX `iCaixa2` ON `Caixas` (`idTipo`)"
+      },
+      {
+        "table_name": "Caixas",
+        "index_name": "iCaixa3",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idPersonalidade ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [iCaixa3] ON [Caixas] (idPersonalidade ASC)",
+        "mysql_sql": "CREATE INDEX `iCaixa3` ON `Caixas` (`idPersonalidade`)"
+      },
+      {
+        "table_name": "Caixas",
+        "index_name": "iCaixa4",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "deletedAt ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [iCaixa4] ON [Caixas] (deletedAt ASC)",
+        "mysql_sql": "CREATE INDEX `iCaixa4` ON `Caixas` (`deletedAt`)"
+      }
+    ],
+    "CaixasItens": [
+      {
+        "table_name": "CaixasItens",
+        "index_name": "icaixasItens1",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idItem ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [icaixasItens1] ON [CaixasItens] (idItem ASC)",
+        "mysql_sql": "CREATE INDEX `icaixasItens1` ON `CaixasItens` (`idItem`)"
+      },
+      {
+        "table_name": "CaixasItens",
+        "index_name": "icaixasItens2",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idCaixa ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [icaixasItens2] ON [CaixasItens] (idCaixa ASC)",
+        "mysql_sql": "CREATE INDEX `icaixasItens2` ON `CaixasItens` (`idCaixa`)"
+      },
+      {
+        "table_name": "CaixasItens",
+        "index_name": "icaixasItens3",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "liberadoApartirDe ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [icaixasItens3] ON [CaixasItens] (liberadoApartirDe ASC)",
+        "mysql_sql": "CREATE INDEX `icaixasItens3` ON `CaixasItens` (`liberadoApartirDe`)"
+      },
+      {
+        "table_name": "CaixasItens",
+        "index_name": "IX_CaixasItens_idItem_idProduto",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idItem ASC, idProduto ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [IX_CaixasItens_idItem_idProduto] ON [CaixasItens] (idItem ASC, idProduto ASC)",
+        "mysql_sql": "CREATE INDEX `IX_CaixasItens_idItem_idProduto` ON `CaixasItens` (`idItem`, `idProduto`)"
+      }
+    ],
+    "CaixasSorteios": [
+      {
+        "table_name": "CaixasSorteios",
+        "index_name": "i_CaixasSorteios_1",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idUsuario ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [i_CaixasSorteios_1] ON [CaixasSorteios] (idUsuario ASC)",
+        "mysql_sql": "CREATE INDEX `i_CaixasSorteios_1` ON `CaixasSorteios` (`idUsuario`)"
+      },
+      {
+        "table_name": "CaixasSorteios",
+        "index_name": "icaixasSorteios1",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idCaixa ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [icaixasSorteios1] ON [CaixasSorteios] (idCaixa ASC)",
+        "mysql_sql": "CREATE INDEX `icaixasSorteios1` ON `CaixasSorteios` (`idCaixa`)"
+      },
+      {
+        "table_name": "CaixasSorteios",
+        "index_name": "icaixasSorteios2",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idItemSorteado ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [icaixasSorteios2] ON [CaixasSorteios] (idItemSorteado ASC)",
+        "mysql_sql": "CREATE INDEX `icaixasSorteios2` ON `CaixasSorteios` (`idItemSorteado`)"
+      }
+    ],
+    "DOM_Municipios": [
+      {
+        "table_name": "DOM_Municipios",
+        "index_name": "fk_tb_cidade_1",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idUf ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [fk_tb_cidade_1] ON [DOM_Municipios] (idUf ASC)",
+        "mysql_sql": "CREATE INDEX `fk_tb_cidade_1` ON `DOM_Municipios` (`idUf`)"
+      }
+    ],
+    "Registros_Financeiros": [
+      {
+        "table_name": "Registros_Financeiros",
+        "index_name": "i_Registros_Financeiros_1",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idUsuario ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [i_Registros_Financeiros_1] ON [Registros_Financeiros] (idUsuario ASC)",
+        "mysql_sql": "CREATE INDEX `i_Registros_Financeiros_1` ON `Registros_Financeiros` (`idUsuario`)"
+      }
+    ],
+    "UsuariosCompras": [
+      {
+        "table_name": "UsuariosCompras",
+        "index_name": "IX_UsuariosCompras_idProdutoShopping",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idProdutoShopping ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [IX_UsuariosCompras_idProdutoShopping] ON [UsuariosCompras] (idProdutoShopping ASC)",
+        "mysql_sql": "CREATE INDEX `IX_UsuariosCompras_idProdutoShopping` ON `UsuariosCompras` (`idProdutoShopping`)"
+      },
+      {
+        "table_name": "UsuariosCompras",
+        "index_name": "IX_UsuariosCompras_idUsuario",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idUsuario ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [IX_UsuariosCompras_idUsuario] ON [UsuariosCompras] (idUsuario ASC)",
+        "mysql_sql": "CREATE INDEX `IX_UsuariosCompras_idUsuario` ON `UsuariosCompras` (`idUsuario`)"
+      }
+    ],
+    "UsuariosContaDigital": [
+      {
+        "table_name": "UsuariosContaDigital",
+        "index_name": "iusuariosContaDigital1",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idUsuario ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [iusuariosContaDigital1] ON [UsuariosContaDigital] (idUsuario ASC)",
+        "mysql_sql": "CREATE INDEX `iusuariosContaDigital1` ON `UsuariosContaDigital` (`idUsuario`)"
+      }
+    ],
+    "UsuariosContaDigitalTransacoes": [
+      {
+        "table_name": "UsuariosContaDigitalTransacoes",
+        "index_name": "i_UsuariosContaDigitalTransacoes_1",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idUsuarioContaDigital ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [i_UsuariosContaDigitalTransacoes_1] ON [UsuariosContaDigitalTransacoes] (idUsuarioContaDigital ASC)",
+        "mysql_sql": "CREATE INDEX `i_UsuariosContaDigitalTransacoes_1` ON `UsuariosContaDigitalTransacoes` (`idUsuarioContaDigital`)"
+      }
+    ],
+    "UsuariosEncomendasItens": [
+      {
+        "table_name": "UsuariosEncomendasItens",
+        "index_name": "IX_UsuariosEncomendasItens_IdEncomenda",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idEncomenda ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [IX_UsuariosEncomendasItens_IdEncomenda] ON [UsuariosEncomendasItens] (idEncomenda ASC)",
+        "mysql_sql": "CREATE INDEX `IX_UsuariosEncomendasItens_IdEncomenda` ON `UsuariosEncomendasItens` (`idEncomenda`)"
+      },
+      {
+        "table_name": "UsuariosEncomendasItens",
+        "index_name": "IX_UsuariosEncomendasItens_idEncomenda_idItem",
+        "index_type": "NONCLUSTERED",
+        "is_unique": false,
+        "columns": "idEncomenda ASC, idItem ASC",
+        "included_columns": null,
+        "filter_definition": null,
+        "original_sql": "CREATE NONCLUSTERED INDEX [IX_UsuariosEncomendasItens_idEncomenda_idItem] ON [UsuariosEncomendasItens] (idEncomenda ASC, idItem ASC)",
+        "mysql_sql": "CREATE INDEX `IX_UsuariosEncomendasItens_idEncomenda_idItem` ON `UsuariosEncomendasItens` (`idEncomenda`, `idItem`)"
+      }
+    ]
+  },
+  "all_indexes": [
+    {
+      "table_name": "Caixas",
+      "index_name": "iCaixa1",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idCaixa ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [iCaixa1] ON [Caixas] (idCaixa ASC)",
+      "mysql_sql": "CREATE INDEX `iCaixa1` ON `Caixas` (`idCaixa`)"
+    },
+    {
+      "table_name": "Caixas",
+      "index_name": "iCaixa2",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idTipo ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [iCaixa2] ON [Caixas] (idTipo ASC)",
+      "mysql_sql": "CREATE INDEX `iCaixa2` ON `Caixas` (`idTipo`)"
+    },
+    {
+      "table_name": "Caixas",
+      "index_name": "iCaixa3",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idPersonalidade ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [iCaixa3] ON [Caixas] (idPersonalidade ASC)",
+      "mysql_sql": "CREATE INDEX `iCaixa3` ON `Caixas` (`idPersonalidade`)"
+    },
+    {
+      "table_name": "Caixas",
+      "index_name": "iCaixa4",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "deletedAt ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [iCaixa4] ON [Caixas] (deletedAt ASC)",
+      "mysql_sql": "CREATE INDEX `iCaixa4` ON `Caixas` (`deletedAt`)"
+    },
+    {
+      "table_name": "CaixasItens",
+      "index_name": "icaixasItens1",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idItem ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [icaixasItens1] ON [CaixasItens] (idItem ASC)",
+      "mysql_sql": "CREATE INDEX `icaixasItens1` ON `CaixasItens` (`idItem`)"
+    },
+    {
+      "table_name": "CaixasItens",
+      "index_name": "icaixasItens2",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idCaixa ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [icaixasItens2] ON [CaixasItens] (idCaixa ASC)",
+      "mysql_sql": "CREATE INDEX `icaixasItens2` ON `CaixasItens` (`idCaixa`)"
+    },
+    {
+      "table_name": "CaixasItens",
+      "index_name": "icaixasItens3",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "liberadoApartirDe ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [icaixasItens3] ON [CaixasItens] (liberadoApartirDe ASC)",
+      "mysql_sql": "CREATE INDEX `icaixasItens3` ON `CaixasItens` (`liberadoApartirDe`)"
+    },
+    {
+      "table_name": "CaixasItens",
+      "index_name": "IX_CaixasItens_idItem_idProduto",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idItem ASC, idProduto ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [IX_CaixasItens_idItem_idProduto] ON [CaixasItens] (idItem ASC, idProduto ASC)",
+      "mysql_sql": "CREATE INDEX `IX_CaixasItens_idItem_idProduto` ON `CaixasItens` (`idItem`, `idProduto`)"
+    },
+    {
+      "table_name": "CaixasSorteios",
+      "index_name": "i_CaixasSorteios_1",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idUsuario ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [i_CaixasSorteios_1] ON [CaixasSorteios] (idUsuario ASC)",
+      "mysql_sql": "CREATE INDEX `i_CaixasSorteios_1` ON `CaixasSorteios` (`idUsuario`)"
+    },
+    {
+      "table_name": "CaixasSorteios",
+      "index_name": "icaixasSorteios1",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idCaixa ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [icaixasSorteios1] ON [CaixasSorteios] (idCaixa ASC)",
+      "mysql_sql": "CREATE INDEX `icaixasSorteios1` ON `CaixasSorteios` (`idCaixa`)"
+    },
+    {
+      "table_name": "CaixasSorteios",
+      "index_name": "icaixasSorteios2",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idItemSorteado ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [icaixasSorteios2] ON [CaixasSorteios] (idItemSorteado ASC)",
+      "mysql_sql": "CREATE INDEX `icaixasSorteios2` ON `CaixasSorteios` (`idItemSorteado`)"
+    },
+    {
+      "table_name": "DOM_Municipios",
+      "index_name": "fk_tb_cidade_1",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idUf ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [fk_tb_cidade_1] ON [DOM_Municipios] (idUf ASC)",
+      "mysql_sql": "CREATE INDEX `fk_tb_cidade_1` ON `DOM_Municipios` (`idUf`)"
+    },
+    {
+      "table_name": "Registros_Financeiros",
+      "index_name": "i_Registros_Financeiros_1",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idUsuario ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [i_Registros_Financeiros_1] ON [Registros_Financeiros] (idUsuario ASC)",
+      "mysql_sql": "CREATE INDEX `i_Registros_Financeiros_1` ON `Registros_Financeiros` (`idUsuario`)"
+    },
+    {
+      "table_name": "UsuariosCompras",
+      "index_name": "IX_UsuariosCompras_idProdutoShopping",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idProdutoShopping ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [IX_UsuariosCompras_idProdutoShopping] ON [UsuariosCompras] (idProdutoShopping ASC)",
+      "mysql_sql": "CREATE INDEX `IX_UsuariosCompras_idProdutoShopping` ON `UsuariosCompras` (`idProdutoShopping`)"
+    },
+    {
+      "table_name": "UsuariosCompras",
+      "index_name": "IX_UsuariosCompras_idUsuario",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idUsuario ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [IX_UsuariosCompras_idUsuario] ON [UsuariosCompras] (idUsuario ASC)",
+      "mysql_sql": "CREATE INDEX `IX_UsuariosCompras_idUsuario` ON `UsuariosCompras` (`idUsuario`)"
+    },
+    {
+      "table_name": "UsuariosContaDigital",
+      "index_name": "iusuariosContaDigital1",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idUsuario ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [iusuariosContaDigital1] ON [UsuariosContaDigital] (idUsuario ASC)",
+      "mysql_sql": "CREATE INDEX `iusuariosContaDigital1` ON `UsuariosContaDigital` (`idUsuario`)"
+    },
+    {
+      "table_name": "UsuariosContaDigitalTransacoes",
+      "index_name": "i_UsuariosContaDigitalTransacoes_1",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idUsuarioContaDigital ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [i_UsuariosContaDigitalTransacoes_1] ON [UsuariosContaDigitalTransacoes] (idUsuarioContaDigital ASC)",
+      "mysql_sql": "CREATE INDEX `i_UsuariosContaDigitalTransacoes_1` ON `UsuariosContaDigitalTransacoes` (`idUsuarioContaDigital`)"
+    },
+    {
+      "table_name": "UsuariosEncomendasItens",
+      "index_name": "IX_UsuariosEncomendasItens_IdEncomenda",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idEncomenda ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [IX_UsuariosEncomendasItens_IdEncomenda] ON [UsuariosEncomendasItens] (idEncomenda ASC)",
+      "mysql_sql": "CREATE INDEX `IX_UsuariosEncomendasItens_IdEncomenda` ON `UsuariosEncomendasItens` (`idEncomenda`)"
+    },
+    {
+      "table_name": "UsuariosEncomendasItens",
+      "index_name": "IX_UsuariosEncomendasItens_idEncomenda_idItem",
+      "index_type": "NONCLUSTERED",
+      "is_unique": false,
+      "columns": "idEncomenda ASC, idItem ASC",
+      "included_columns": null,
+      "filter_definition": null,
+      "original_sql": "CREATE NONCLUSTERED INDEX [IX_UsuariosEncomendasItens_idEncomenda_idItem] ON [UsuariosEncomendasItens] (idEncomenda ASC, idItem ASC)",
+      "mysql_sql": "CREATE INDEX `IX_UsuariosEncomendasItens_idEncomenda_idItem` ON `UsuariosEncomendasItens` (`idEncomenda`, `idItem`)"
+    }
+  ]
+}
