@@ -45,8 +45,8 @@ class DataMigrator {
     }
   }
 
-  // Verificar se tabela já foi migrada
-  async checkMigrationStatus(tableName, expectedRows, identityColumn) {
+  // Verificar status da migração e obter informações para migração incremental
+  async checkMigrationStatus(tableName, expectedRows, identityColumn, schema) {
     try {
       const mysqlConn = await this.db.connectMySQL();
       const [result] = await mysqlConn.execute(
@@ -54,30 +54,124 @@ class DataMigrator {
       );
       const currentRows = parseInt(result[0].count);
       
+      // Verificar se existe coluna updatedAt
+      const updatedAtColumn = schema.columns.find(col => 
+        col.column_name.toLowerCase().includes('updatedat') || 
+        col.column_name.toLowerCase().includes('updated_at') ||
+        col.column_name.toLowerCase().includes('dataalteracao') ||
+        col.column_name.toLowerCase().includes('datamodificacao')
+      );
+      
       if (currentRows === 0) {
-        return { status: 'empty', currentRows, expectedRows, lastId: null };
+        return { 
+          status: 'empty', 
+          currentRows, 
+          expectedRows, 
+          lastId: null, 
+          lastUpdatedAt: null,
+          updatedAtColumn: updatedAtColumn?.column_name || null
+        };
       }
       
-      if (currentRows >= expectedRows) {
-        return { status: 'completed', currentRows, expectedRows, lastId: null };
-      }
+      let lastId = null;
+      let lastUpdatedAt = null;
       
-      // Se tem alguns dados mas não todos, verificar qual foi o último ID migrado
-      if (currentRows > 0 && currentRows < expectedRows && identityColumn) {
+      // Obter último ID se existe coluna identity
+      if (identityColumn) {
         const [lastIdResult] = await mysqlConn.execute(
           `SELECT MAX(\`${identityColumn.column_name}\`) as lastId FROM \`${tableName}\``
         );
-        const lastId = lastIdResult[0].lastId;
-        return { status: 'partial', currentRows, expectedRows, lastId };
+        lastId = lastIdResult[0].lastId;
       }
       
-      return { status: 'pending', currentRows, expectedRows, lastId: null };
+      // Obter último updatedAt se existe coluna de update
+      if (updatedAtColumn) {
+        try {
+          const [lastUpdatedResult] = await mysqlConn.execute(
+            `SELECT MAX(\`${updatedAtColumn.column_name}\`) as lastUpdatedAt FROM \`${tableName}\``
+          );
+          lastUpdatedAt = lastUpdatedResult[0].lastUpdatedAt;
+        } catch (error) {
+          logger.warn(`⚠️  Não foi possível obter último updatedAt para ${tableName}: ${error.message}`);
+        }
+      }
+      
+      return { 
+        status: currentRows >= expectedRows ? 'needs_sync' : 'partial', 
+        currentRows, 
+        expectedRows, 
+        lastId,
+        lastUpdatedAt,
+        updatedAtColumn: updatedAtColumn?.column_name || null
+      };
+      
     } catch (error) {
       if (error.code === 'ER_NO_SUCH_TABLE') {
-        return { status: 'no_table', currentRows: 0, expectedRows, lastId: null };
+        return { 
+          status: 'no_table', 
+          currentRows: 0, 
+          expectedRows, 
+          lastId: null, 
+          lastUpdatedAt: null,
+          updatedAtColumn: null
+        };
       }
       throw error;
     }
+  }
+
+  // Construir query incremental inteligente
+  async buildIncrementalQuery(tableName, schema, migrationStatus, identityColumn) {
+    const { lastId, lastUpdatedAt, updatedAtColumn, status } = migrationStatus;
+    
+    let whereConditions = [];
+    let orderBy = '';
+    
+    // Se tem coluna identity, usar para buscar registros novos
+    if (identityColumn && lastId) {
+      whereConditions.push(`${identityColumn.column_name} > ${lastId}`);
+    }
+    
+    // Se tem coluna de update, buscar registros atualizados
+    if (updatedAtColumn && lastUpdatedAt) {
+      const formattedDate = lastUpdatedAt.toISOString().slice(0, 19).replace('T', ' ');
+      whereConditions.push(`${updatedAtColumn} > '${formattedDate}'`);
+    }
+    
+    // Para status 'needs_sync', sempre verificar atualizações mesmo se não há novos registros
+    if (status === 'needs_sync' && updatedAtColumn && lastUpdatedAt) {
+      const formattedDate = lastUpdatedAt.toISOString().slice(0, 19).replace('T', ' ');
+      whereConditions = [`${updatedAtColumn} > '${formattedDate}'`];
+    }
+    
+    // Construir ORDER BY
+    if (identityColumn) {
+      orderBy = `ORDER BY ${identityColumn.column_name}`;
+    } else if (updatedAtColumn) {
+      orderBy = `ORDER BY ${updatedAtColumn}`;
+    } else {
+      orderBy = `ORDER BY ${schema.columns[0].column_name}`;
+    }
+    
+    // Construir WHERE clause
+    let whereClause = '';
+    if (whereConditions.length > 0) {
+      // Se tem tanto ID quanto updatedAt, usar OR para pegar registros novos OU atualizados
+      if (whereConditions.length > 1 && identityColumn && updatedAtColumn) {
+        whereClause = `WHERE (${whereConditions.join(' OR ')})`;
+      } else {
+        whereClause = `WHERE ${whereConditions.join(' AND ')}`;
+      }
+    }
+    
+    // Query final
+    const query = `
+      SELECT * FROM ${tableName}
+      ${whereClause}
+      ${orderBy}
+    `.trim();
+    
+    return query;
   }
 
   // Migrar dados de uma tabela
@@ -93,12 +187,12 @@ class DataMigrator {
     const identityColumn = schema.columns.find(col => col.is_identity);
 
     // Verificar status da migração
-    const migrationStatus = await this.checkMigrationStatus(tableName, expectedRows, identityColumn);
+    const migrationStatus = await this.checkMigrationStatus(tableName, expectedRows, identityColumn, schema);
     
     switch (migrationStatus.status) {
-      case 'completed':
-        logger.info(`✅ ${tableName}: ${migrationStatus.currentRows}/${expectedRows} registros - COMPLETA`);
-        return;
+      case 'needs_sync':
+        logger.info(`🔄 ${tableName}: ${migrationStatus.currentRows}/${expectedRows} registros - VERIFICANDO ATUALIZAÇÕES`);
+        break;
         
       case 'partial':
         logger.info(`⚠️  ${tableName}: ${migrationStatus.currentRows}/${expectedRows} registros - CONTINUANDO...`);
@@ -121,31 +215,12 @@ class DataMigrator {
     
     try {
       let migratedRows = migrationStatus.currentRows || 0;
-      let whereClause = '';
       
-      // Para migrações parciais com identity, buscar apenas registros após o último ID migrado
-      if (migrationStatus.status === 'partial' && migrationStatus.lastId && identityColumn) {
-        whereClause = `WHERE ${identityColumn.column_name} > ${migrationStatus.lastId}`;
-      }
-
-      // Buscar dados do SQL Server usando query baseada em cursor ao invés de OFFSET
-      let query;
-      if (identityColumn) {
-        query = `
-          SELECT * FROM ${tableName}
-          ${whereClause}
-          ORDER BY ${identityColumn.column_name}
-        `;
-      } else {
-        // Se não tem identity, usar OFFSET tradicional (menos eficiente)
-        const offset = migrationStatus.currentRows || 0;
-        query = `
-          SELECT * FROM ${tableName}
-          ORDER BY ${schema.columns[0].column_name}
-          OFFSET ${offset} ROWS
-          FETCH NEXT ${expectedRows - offset} ROWS ONLY
-        `;
-      }
+      // Construir query inteligente baseada no status da migração
+      const query = await this.buildIncrementalQuery(tableName, schema, migrationStatus, identityColumn);
+      
+      logger.info(`🔍 Buscando registros novos/atualizados: ${query.replace(/\s+/g, ' ').trim()}`);
+      logger.info(`📊 Critérios: lastId=${migrationStatus.lastId}, lastUpdatedAt=${migrationStatus.lastUpdatedAt}`);
 
       const result = await sqlPool.request().query(query);
       const rows = result.recordset;
@@ -155,14 +230,27 @@ class DataMigrator {
         return;
       }
 
-      // Preparar dados para inserção
+      // Preparar dados para inserção/atualização
       const columns = schema.columns.map(col => col.column_name);
       const placeholders = columns.map(() => '?').join(', ');
       
-      // Se tem identity, usar INSERT IGNORE para evitar conflitos de ID
+      // Usar UPSERT (INSERT ... ON DUPLICATE KEY UPDATE) para lidar com registros atualizados
       let insertSQL;
       if (identityColumn) {
-        insertSQL = `INSERT IGNORE INTO \`${tableName}\` (\`${columns.join('`, `')}\`) VALUES (${placeholders})`;
+        // Para tabelas com identity, usar UPSERT para permitir atualizações
+        const updateColumns = columns
+          .filter(col => col !== identityColumn.column_name) // Não atualizar o ID
+          .map(col => `\`${col}\` = VALUES(\`${col}\`)`)
+          .join(', ');
+          
+        if (migrationStatus.status === 'needs_sync' && updateColumns) {
+          // Se é sincronização, usar UPSERT para atualizar registros existentes
+          insertSQL = `INSERT INTO \`${tableName}\` (\`${columns.join('`, `')}\`) VALUES (${placeholders}) 
+                       ON DUPLICATE KEY UPDATE ${updateColumns}`;
+        } else {
+          // Se é migração inicial, usar INSERT IGNORE
+          insertSQL = `INSERT IGNORE INTO \`${tableName}\` (\`${columns.join('`, `')}\`) VALUES (${placeholders})`;
+        }
       } else {
         insertSQL = `INSERT INTO \`${tableName}\` (\`${columns.join('`, `')}\`) VALUES (${placeholders})`;
       }
@@ -199,23 +287,35 @@ class DataMigrator {
             });
 
             const oldId = identityColumn ? row[identityColumn.column_name] : null;
-            await mysqlConn.execute(insertSQL, values);
+            const result = await mysqlConn.execute(insertSQL, values);
 
-            // Se inseriu com sucesso e tem identity, mapear IDs
-            if (identityColumn && oldId) {
-              const [newIdResult] = await mysqlConn.execute('SELECT LAST_INSERT_ID() as newId');
-              const newId = newIdResult[0].newId;
+            // Verificar se foi inserção ou atualização
+            const wasInserted = result[0].affectedRows > 0 && result[0].changedRows === 0;
+            const wasUpdated = result[0].changedRows > 0;
+            
+            if (wasInserted || wasUpdated) {
+              processedInBatch++;
               
-              if (newId && newId !== oldId) {
-                this.idMappings.set(`${tableName}.${oldId}`, newId);
+              // Se inseriu com sucesso e tem identity, mapear IDs (apenas para inserções)
+              if (identityColumn && oldId && wasInserted) {
+                const [newIdResult] = await mysqlConn.execute('SELECT LAST_INSERT_ID() as newId');
+                const newId = newIdResult[0].newId;
+                
+                if (newId && newId !== oldId) {
+                  this.idMappings.set(`${tableName}.${oldId}`, newId);
+                }
+              }
+              
+              // Log detalhado para atualizações
+              if (wasUpdated && migrationStatus.updatedAtColumn) {
+                const updatedValue = row[migrationStatus.updatedAtColumn];
+                logger.debug(`🔄 Atualizado: ${tableName}.${oldId} (${migrationStatus.updatedAtColumn}: ${updatedValue})`);
               }
             }
 
-            processedInBatch++;
-
           } catch (insertError) {
             if (!insertError.message.includes('Duplicate entry')) {
-              logger.error(`❌ Erro ao inserir registro em ${tableName}:`, insertError.message);
+              logger.error(`❌ Erro ao inserir/atualizar registro em ${tableName}:`, insertError.message);
             }
           }
         }
@@ -227,7 +327,17 @@ class DataMigrator {
       }
 
       const finalMigrated = migratedRows + processedInBatch;
-      logger.info(`✅ Migração concluída: ${tableName} - ${processedInBatch} novos registros (total: ${finalMigrated})`);
+      
+      // Log com estatísticas detalhadas
+      if (migrationStatus.status === 'needs_sync') {
+        logger.info(`✅ Sincronização concluída: ${tableName} - ${processedInBatch} registros processados (inserções + atualizações)`);
+      } else {
+        logger.info(`✅ Migração concluída: ${tableName} - ${processedInBatch} novos registros (total: ${finalMigrated})`);
+      }
+      
+      if (processedInBatch > 0 && migrationStatus.updatedAtColumn) {
+        logger.info(`📅 Coluna de update detectada: ${migrationStatus.updatedAtColumn}`);
+      }
 
     } catch (error) {
       logger.error(`❌ Erro na migração da tabela ${tableName}:`, error);
