@@ -120,6 +120,18 @@ class DataMigrator {
     }
   }
 
+  // Obter contagem real de registros no SQL Server
+  async getActualRowCount(tableName) {
+    try {
+      const sqlPool = await this.db.connectSqlServer();
+      const result = await sqlPool.request().query(`SELECT COUNT(*) as count FROM ${tableName}`);
+      return parseInt(result.recordset[0].count);
+    } catch (error) {
+      logger.warn(`⚠️  Não foi possível obter contagem real de ${tableName}: ${error.message}`);
+      return null;
+    }
+  }
+
   // Construir query incremental inteligente
   async buildIncrementalQuery(tableName, schema, migrationStatus, identityColumn) {
     const { lastId, lastUpdatedAt, updatedAtColumn, status } = migrationStatus;
@@ -216,6 +228,14 @@ class DataMigrator {
     try {
       let migratedRows = migrationStatus.currentRows || 0;
       
+      // VALIDAÇÃO: Verificar se row_count está correto
+      const actualRowCount = await this.getActualRowCount(tableName);
+      if (actualRowCount !== expectedRows) {
+        logger.warn(`⚠️  ${tableName}: Schema diz ${expectedRows} registros, mas SQL Server tem ${actualRowCount}`);
+        logger.info(`📊 Usando contagem real: ${actualRowCount} registros`);
+        expectedRows = actualRowCount; // Atualizar com valor real
+      }
+      
       // Construir query inteligente baseada no status da migração
       const query = await this.buildIncrementalQuery(tableName, schema, migrationStatus, identityColumn);
       
@@ -255,9 +275,24 @@ class DataMigrator {
         insertSQL = `INSERT INTO \`${tableName}\` (\`${columns.join('`, `')}\`) VALUES (${placeholders})`;
       }
 
-      // Processar registros em lotes
+      // VALIDAÇÃO: Verificar se há registros para processar
       const totalRows = rows.length;
+      if (totalRows === 0) {
+        logger.info(`✅ Nenhum registro novo para migrar em ${tableName}`);
+        return;
+      }
+      
+      // VALIDAÇÃO: Limite de segurança para evitar loops infinitos
+      if (totalRows > expectedRows * 2) {
+        logger.error(`🚨 ERRO: Muitos registros retornados (${totalRows}) para ${tableName}. Esperado: max ${expectedRows * 2}`);
+        throw new Error(`Possível loop infinito ou query incorreta para ${tableName}`);
+      }
+      
+      logger.info(`📦 Processando ${totalRows} registros de ${tableName}`);
+      
       let processedInBatch = 0;
+      let insertedCount = 0;
+      let updatedCount = 0;
 
       for (let i = 0; i < totalRows; i += this.batchSize) {
         const batch = rows.slice(i, i + this.batchSize);
@@ -296,6 +331,10 @@ class DataMigrator {
             if (wasInserted || wasUpdated) {
               processedInBatch++;
               
+              // Contar tipos de operação
+              if (wasInserted) insertedCount++;
+              if (wasUpdated) updatedCount++;
+              
               // Se inseriu com sucesso e tem identity, mapear IDs (apenas para inserções)
               if (identityColumn && oldId && wasInserted) {
                 const [newIdResult] = await mysqlConn.execute('SELECT LAST_INSERT_ID() as newId');
@@ -322,7 +361,13 @@ class DataMigrator {
 
         // Log progresso para cada lote
         const totalMigrated = migratedRows + processedInBatch;
-        const progress = ((totalMigrated / expectedRows) * 100).toFixed(1);
+        const progress = Math.min(((totalMigrated / expectedRows) * 100), 100).toFixed(1);
+        
+        // Aviso se está migrando mais que o esperado
+        if (totalMigrated > expectedRows) {
+          logger.warn(`⚠️  ${tableName}: Migrando mais registros que esperado! ${totalMigrated}/${expectedRows}`);
+        }
+        
         logger.info(`📈 ${tableName}: ${totalMigrated}/${expectedRows} (${progress}%)`);
       }
 
@@ -330,13 +375,20 @@ class DataMigrator {
       
       // Log com estatísticas detalhadas
       if (migrationStatus.status === 'needs_sync') {
-        logger.info(`✅ Sincronização concluída: ${tableName} - ${processedInBatch} registros processados (inserções + atualizações)`);
+        logger.info(`✅ Sincronização concluída: ${tableName} - ${processedInBatch} registros processados`);
+        logger.info(`   📊 Inserções: ${insertedCount} | Atualizações: ${updatedCount}`);
       } else {
         logger.info(`✅ Migração concluída: ${tableName} - ${processedInBatch} novos registros (total: ${finalMigrated})`);
       }
       
       if (processedInBatch > 0 && migrationStatus.updatedAtColumn) {
         logger.info(`📅 Coluna de update detectada: ${migrationStatus.updatedAtColumn}`);
+      }
+      
+      // VALIDAÇÃO FINAL: Verificar se não migrou mais que o esperado
+      if (finalMigrated > expectedRows) {
+        logger.warn(`⚠️  ATENÇÃO: ${tableName} migrou ${finalMigrated} registros, mas esperava ${expectedRows}`);
+        logger.warn(`   Isso pode indicar duplicatas ou dados crescendo no SQL Server`);
       }
 
     } catch (error) {
