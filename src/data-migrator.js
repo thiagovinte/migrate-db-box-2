@@ -188,7 +188,7 @@ class DataMigrator {
 
   // Migrar dados de uma tabela
   async migrateTable(tableName, schema) {
-    const expectedRows = parseInt(schema.row_count);
+    let expectedRows = parseInt(schema.row_count);
     
     if (expectedRows === 0) {
       logger.info(`⏭️  Pulando tabela vazia: ${tableName}`);
